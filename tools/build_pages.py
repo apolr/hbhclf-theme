@@ -77,7 +77,7 @@ def programs():
     t = [page_hero('Our programs', 'to unite people of African heritage living in Hamilton')]
     t.append(feature(U + '2024/08/Africa-Day.jpg', '', heading('Africa Day', 2, 'x-large') + "\n\n" + para('The Africa Day celebration in Hamilton, Ontario, is a vibrant annual event that unites the city’s African community and its supporters around May 25th, honoring African heritage and culture. This gathering features a rich array of activities, including cultural showcases of arts and crafts, thought-provoking lectures by community leaders, lively music and dance performances, and a culinary experience featuring authentic African cuisine. Organized by the Hamilton Black Health Community Leaders Forum, the celebration fosters unity among people of African descent, promotes cross-cultural understanding, empowers youth, and highlights the contributions of the African community to Hamilton’s diverse cultural landscape.')))
     t.append(feature(U + '2026/09/Inahita-Kijiji-Kulea-Mtoto-–-African-Children.png', 'Smiling Black African children gathered together, representing community, care, and belonging.',
-        kicker('Featured program') + "\n\n" + heading('Inahitaji Kijiji Kulea Mtoto', 2, 'x-large') + "\n\n" + heading('It Takes a Village to Raise a Child', 3, 'large')
+        kicker('Featured program', 'black') + "\n\n" + heading('Inahitaji Kijiji Kulea Mtoto', 2, 'x-large') + "\n\n" + heading('It Takes a Village to Raise a Child', 3, 'large')
         + "\n\n" + para('A culturally responsive, community-led support program for Black/African and newcomer families in Hamilton who are navigating or engaged with the child-welfare system.')
         + "\n\n" + button('Learn more', '/inahita-kijiji-kulea-mtoto/'), flip=True, bg='orange', text='black'))
     t.append(feature(U + '2026/07/HBHCLF-Ubuntu.jpg', '',
@@ -206,7 +206,7 @@ def inahitaji():
         + "\n\n" + button('Apply now: register to volunteer', '#volunteer-form', orange=True))
     write('abusua-elder-volunteer.html', [
         page_hero('ABUSUA/Elder Volunteer', 'Share your wisdom with African/Black families and youth in Hamilton'),
-        section(vol, content='900px'),
+        section(vol.replace('"textColor":"amber"', '"textColor":"orange"').replace('has-amber-color', 'has-orange-color'), content='900px'),
         section(heading('Register to volunteer as an ABUSUA/Elder', 2, 'x-large') + "\n\n" + shortcode('[fluentform id="7"]'), content='800px', anchor='volunteer-form', bg='black', text='white')])
     t.append(section(kicker('Now recruiting: volunteer opportunity', 'amber') + "\n\n" + heading('Become an ABUSUA/Elder Volunteer', 2, 'x-large')
         + "\n\n" + para('Are you a respected community member with cultural knowledge and lived experience? Help guide parents, caregivers, families and youth as part of the village. This volunteer role comes with an honorarium.')
