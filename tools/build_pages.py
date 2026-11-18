@@ -19,7 +19,7 @@ def about():
     t = []
     t.append(page_hero('Who we are', 'the voice of Hamilton’s African Diaspora Community at the municipal, provincial and federal levels'))
     t.append(section(
-        para('Hamilton Black Health Community Leaders Forum is the voice of Hamilton’s African Diaspora Community at the municipal, provincial and federal levels. The organization represents Hamilton’s African Communities before the city of Hamilton, and the provincial and federal governments in the spirit of partnership for the advancement of its member-unique needs regarding the social determinants of health. HBHCLF, a federally registered, non-partisan and non-profit organization was established on September 14, 2021. and will be inaugurated on May 28th, 2022', 'large')
+        para('Hamilton Black Health Community Leaders Forum is the voice of Hamilton’s African Diaspora Community at the municipal, provincial and federal levels. The organization represents Hamilton’s African Communities before the city of Hamilton, and the provincial and federal governments in the spirit of partnership for the advancement of its member-unique needs regarding the social determinants of health. HBHCLF, a federally registered, non-partisan and non-profit organization was established on September 14, 2021, and was inaugurated on May 28th, 2022.', 'large')
         + "\n\n" + para('We are governed by a constitution and specific bylaws agreed to by our membership and represent the interest of Canadians of African heritage residing in Hamilton at the Municipal, Provincial and Federal levels on policy-oriented issues that impact them in areas such as housing, access to equitable and culturally-delivered healthcare, employment, and other social determinants of health.'),
         content='900px'))
     mission = heading('Our mission', 2, 'x-large') + "\n\n" + para('We seek inclusive health policy-making at all levels of government, advocating for equitable and culturally appropriate healthcare, housing, and employment opportunities for our community.') \
@@ -30,7 +30,7 @@ def about():
             'Seek to form partnerships with organizations to engage in Projects aimed at addressing issues related to social determinants of health within the African Diaspora in Hamilton.',
             'Collaborate with organizations to work on existing policies and operations which negatively affect the overall health & well-being of the African Diaspora in Hamilton and request involvement in policy reviews, discussions and enactment to effect systemic changes.',
             'Collaborate with other Black Organizations on Projects of mutual interest to achieve equity, diversity and inclusion for our communities. We will also share useful ideas, resources, data and information for our mutual benefit.']),
-        ('Research & Data Collection', '2024/08/Research-Data-Collection.jpg', [
+        ('Research & Data Collection', '2024/08/Research-Data-Collection%E2%80%8B.jpg', [
             'Collect race-based data as a key step to improving health outcomes for African populations and addressing racism.',
             'To build pictures of where race-based gaps, racism and racial bias exist in both Provincial and Municipal health, housing, employment, school, and Justice systems.',
             'To paint a picture of the gaps and barriers in services and programs for African children, youth and families to effect changes to support their mental health and wellbeing.',
@@ -51,11 +51,25 @@ def about():
         heading('New Horizon Seniors Project', 2, 'x-large')
         + "\n\n" + para('Hamilton Black Health Community Leaders Forum’s aims to become the unified voice of the African Diaspora communities in Hamilton on issues related to social determinants of health.')
         + "\n\n" + button('Learn more', '/programs/#New_Horizon'), flip=True))
+    def person(n, r, img):
+        if img:
+            pic = f'<!-- wp:image {{"aspectRatio":"1","scale":"cover","sizeSlug":"medium","className":"hb-person__photo","style":{{"border":{{"radius":"16px"}}}}}} -->\n<figure class="wp-block-image size-medium has-custom-border hb-person__photo"><img src="{U}{img}" alt="{e(n)}, {e(r)}" style="border-radius:16px;aspect-ratio:1;object-fit:cover"/></figure>\n<!-- /wp:image -->'
+        else:
+            ini = ''.join(w[0] for w in n.replace('-', ' ').split()[:2])
+            pic = f'<!-- wp:group {{"className":"hb-person__initials","style":{{"border":{{"radius":"16px"}}}},"backgroundColor":"orange","textColor":"black","layout":{{"type":"flex","justifyContent":"center","verticalAlignment":"center"}}}} -->\n<div class="wp-block-group hb-person__initials has-black-color has-orange-background-color has-text-color has-background" style="border-radius:16px"><!-- wp:paragraph {{"fontSize":"x-large"}} -->\n<p class="has-x-large-font-size"><strong>{ini}</strong></p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:group -->'
+        return column(pic + "\n\n" + heading(n, 3, 'medium') + "\n\n" + para(r, 'small'), 'top')
     def people(rows):
-        return "\n\n".join(heading(n, 3, 'medium') + "\n\n" + para(r) for n, r in rows)
-    exe = [('Ikechukwu Agbassi', 'President'), ('Jean-jacques Somwe', 'Vice President'), ('John Luma', 'Financial Director'), ('Comfort Afari', 'Interim Administrative Assistant'), ('Salma Ahmed Musa', 'Executive Assistant')]
-    brd = [('Comfort Afari', 'Board Chairman'), ('Matilda Ansah-Sam', 'Board Member, Treasurer/Director Finance, Audit & Risk'), ('Nancy Muinda', 'Board Member, Director Program Planning & Implementation'), ('Chuma Okereke', 'Board Member, Director, Nomination, Recruitment & Partnership'), ('Innocent Azipoh', 'Board Member, Service Excellence/Equity & Diversity')]
-    t.append(section(columns([column(heading('The executive team', 2, 'x-large') + "\n\n" + people(exe), 'top'), column(heading('The governing board', 2, 'x-large') + "\n\n" + people(brd), 'top')], 'top'), bg='black', text='white', anchor='team'))
+        cols = [person(*r) for r in rows]
+        out = []
+        for i in range(0, len(cols), 3):
+            row = cols[i:i + 3]
+            while len(row) < 3: row.append(column('', 'top'))
+            out.append(columns(row, 'top'))
+        return "\n\n".join(out)
+    exe = [('Ikechukwu Agbassi', 'President', '2024/08/Ikechukwu-Agbassi.webp'), ('Jean-jacques Somwe', 'Vice President', '2024/08/Jean-jacques-Somwe.webp'), ('John Luma', 'Financial Director', '2026/02/John-Luma-Headshots.jpg'), ('Comfort Afari', 'Interim Administrative Assistant', '2024/08/Comfort-Afari.webp'), ('Salma Ahmed Musa', 'Executive Assistant', '2024/08/Salma-Musa.webp')]
+    brd = [('Comfort Afari', 'Board Chairman', '2024/08/Comfort-Afari.webp'), ('Matilda Ansah-Sam', 'Board Member, Treasurer/Director Finance, Audit & Risk', None), ('Nancy Muinda', 'Board Member, Director Program Planning & Implementation', '2025/12/HBHCLF-Nanou.jpg'), ('Chuma Okereke', 'Board Member, Director, Nomination, Recruitment & Partnership', '2025/12/HBHCLF-Chukwuma.jpg'), ('Innocent Azipoh', 'Board Member, Service Excellence/Equity & Diversity', None)]
+    t.append(section(heading('The executive team', 2, 'x-large') + "\n\n" + people(exe), bg='black', text='white', anchor='team'))
+    t.append(section(heading('The governing board', 2, 'x-large') + "\n\n" + people(brd), anchor='board'))
     write('about.html', t)
 
 # ---------------- Programs (page 177) ----------------
@@ -199,7 +213,7 @@ def inahitaji():
         + "\n\n" + button('See the role and apply', VOL_URL, orange=True), content='900px', bg='black', text='white', anchor='volunteer'))
     t.append(section(heading('Be among the first to know', 2, 'x-large', 'center') + "\n\n" + para('Inahitaji Kijiji Kulea Mtoto is coming soon to Hamilton.', 'large', align='center')
         + "\n\n" + para('We are preparing to welcome families and community members into this new initiative. Join the HBHCLF mailing list for launch updates, or contact us if you would like to learn more about family support or community partnership opportunities.', align='center')
-        + "\n\n" + buttons([('Get program updates', '/join-our-mailing-list/'), ('I’m interested in family support', '/contact-us/'), ('I’m a community or service partner', '/contact-us/')]).replace('<div class="wp-block-buttons">', '<div class="wp-block-buttons">', 1), bg='orange', text='black', content='900px'))
+        + "\n\n" + buttons([('Get program updates', '#newsletter'), ('I’m interested in family support', '/contact-us/'), ('I’m a community or service partner', '/contact-us/')]).replace('<div class="wp-block-buttons">', '<div class="wp-block-buttons">', 1), bg='orange', text='black', content='900px'))
     faq = [('What is Inahitaji Kijiji Kulea Mtoto?', 'It is an upcoming HBHCLF community-led wrap-around support initiative for racialized Black/African and newcomer families in Hamilton who are engaged with the child-welfare system.'),
            ('Who is the program for?', 'The program is intended for racialized Black/African and newcomer families in Hamilton who are navigating the child-welfare system.'),
            ('What support will the program focus on?', 'Its three interconnected pillars are Family Resilience Circles, Community Resource Navigation, and Community Education & Advocacy.'),
@@ -207,7 +221,7 @@ def inahitaji():
     det = "\n\n".join(f'<!-- wp:details -->\n<details class="wp-block-details"><summary>{e(q)}</summary><!-- wp:paragraph -->\n<p>{e(a)}</p>\n<!-- /wp:paragraph --></details>\n<!-- /wp:details -->' for q, a in faq)
     t.append(section(heading('Frequently asked questions', 2, 'x-large') + "\n\n" + det, content='900px'))
     t.append(section(heading('When a child thrives, a family grows stronger.', 2, 'x-large', 'center') + "\n\n" + heading('When families grow stronger, communities flourish.', 3, 'large', 'center')
-        + "\n\n" + para('Inahitaji Kijiji Kulea Mtoto: coming soon to Hamilton.', bold=True, align='center') + "\n\n" + button('Keep me updated', '/join-our-mailing-list/', orange=True, center=True), bg='black', text='white', content='900px'))
+        + "\n\n" + para('Inahitaji Kijiji Kulea Mtoto: coming soon to Hamilton.', bold=True, align='center') + "\n\n" + button('Keep me updated', '#newsletter', orange=True, center=True), bg='black', text='white', content='900px'))
     write('inahitaji.html', t)
 
 if __name__ == '__main__':

@@ -46,3 +46,9 @@ Text Domain: hbhclf
 /* Query grid cards. */
 .wp-block-post-template .wp-block-post-title a { text-decoration: none; }
 .wp-block-post-featured-image img { border-radius: 12px; }
+
+/* Team cards: square photo, or an initials tile when no photo exists. */
+.hb-person__photo { width: 100%; margin: 0; }
+.hb-person__photo img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.hb-person__initials { aspect-ratio: 1; width: 100%; margin: 0; }
+#newsletter { scroll-margin-top: 2rem; }
