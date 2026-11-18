@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.3.0
+Version: 0.4.0
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -59,3 +59,33 @@ Text Domain: hbhclf
 .wp-block-gallery.has-nested-images figure.wp-block-image img { border-radius: 8px; }
 .hb-member-logos.wp-block-gallery figure.wp-block-image { align-items: center; justify-content: center; }
 .hb-member-logos.wp-block-gallery figure.wp-block-image img { object-fit: contain; max-height: 120px; width: auto; margin: 0 auto; }
+
+/* Header: stays at the top while scrolling, soft shadow, logo sized for desktop and phone. */
+.hb-header { position: sticky; top: 0; z-index: 100; box-shadow: 0 6px 20px rgba(0,0,0,.08); }
+body.admin-bar .hb-header { top: 32px; }
+@media (max-width: 782px) { body.admin-bar .hb-header { top: 46px; } }
+.hb-logo img { width: 170px; height: auto; }
+@media (max-width: 600px) { .hb-logo img { width: 120px; } .hb-header .hb-social { display: none; } }
+.hb-nav .wp-block-navigation-item__content { font-weight: 500; text-decoration: none; }
+.hb-nav .wp-block-navigation-item__content:hover { color: var(--wp--preset--color--orange); }
+.hb-nav .wp-block-navigation__submenu-container { border: 0 !important; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.12); padding: .5rem 0; }
+.hb-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content { padding: .5rem 1.25rem; }
+@media (max-width: 1000px) and (min-width: 600px) { .hb-nav { font-size: .95rem; } }
+
+/* Footer: logo sits on a white tile so any logo colour reads on black. */
+.hb-footer-logo { background: #fff; border-radius: 12px; padding: 10px 14px; display: inline-block; }
+.hb-footer-nav .wp-block-navigation-item__content { text-decoration: none; }
+.hb-footer-nav .wp-block-navigation-item__content:hover { color: var(--wp--preset--color--orange); }
+
+/* Menu: switch to the menu button below 1100px so seven items never wrap. */
+@media (min-width: 600px) and (max-width: 1099px) {
+	.hb-nav .wp-block-navigation__responsive-container-open:not(.always-shown) { display: flex; }
+	.hb-nav .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) { display: none; }
+}
+.hb-donate .wp-block-button__link { white-space: nowrap; }
+.wp-site-blocks > main, .wp-site-blocks > footer, .wp-site-blocks > .wp-block-template-part + * { margin-block-start: 0; }
+.hb-nav .wp-block-navigation__submenu-container { min-width: 270px !important; }
+.hb-nav .is-menu-open .wp-block-navigation__submenu-container { box-shadow: none; padding: 0 0 0 1rem; min-width: 0 !important; }
+.hb-nav .is-menu-open .wp-block-navigation-item__content { font-size: 1.15rem; }
+/* Full-width coloured bands sit flush against each other (no white strips). */
+.wp-block-post-content > .alignfull { margin-block-start: 0; margin-block-end: 0; }

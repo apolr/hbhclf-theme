@@ -1,9 +1,13 @@
-<!-- wp:group {"backgroundColor":"black","textColor":"white","layout":{"type":"constrained","contentSize":"1200px"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}}} -->
-<div class="wp-block-group has-white-color has-black-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--40);padding-bottom:var(--wp--preset--spacing--40)"><!-- wp:columns -->
-<div class="wp-block-columns"><!-- wp:column -->
-<div class="wp-block-column"><!-- wp:site-title {"level":0,"isLink":false} /-->
+<!-- wp:group {"backgroundColor":"black","textColor":"white","layout":{"type":"constrained","contentSize":"1200px"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30","right":"var:preset|spacing|30"}}}} -->
+<div class="wp-block-group has-white-color has-black-background-color has-text-color has-background" style="padding-top:var(--wp--preset--spacing--50);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)"><!-- wp:columns -->
+<div class="wp-block-columns"><!-- wp:column {"width":"40%"} -->
+<div class="wp-block-column" style="flex-basis:40%"><!-- wp:site-logo {"width":170,"shouldSyncIcon":false,"className":"hb-footer-logo"} /-->
 
-<!-- wp:site-tagline /--></div>
+<!-- wp:site-tagline /-->
+
+<!-- wp:social-links {"iconColor":"white","iconColorValue":"#ffffff","className":"is-style-logos-only"} -->
+<ul class="wp-block-social-links has-icon-color is-style-logos-only"><!-- wp:social-link {"url":"https://www.instagram.com/hamiltonblackhealth/","service":"instagram"} /--></ul>
+<!-- /wp:social-links --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
@@ -11,7 +15,15 @@
 <h3 class="wp-block-heading has-medium-font-size">Quick links</h3>
 <!-- /wp:heading -->
 
-<!-- wp:navigation {"overlayMenu":"never","layout":{"type":"flex","orientation":"vertical"}} /--></div>
+<!-- wp:navigation {"overlayMenu":"never","className":"hb-footer-nav","layout":{"type":"flex","orientation":"vertical"}} -->
+<!-- wp:navigation-link {"label":"Who we are","url":"/about/","kind":"custom","isTopLevelLink":true} /-->
+
+<!-- wp:navigation-link {"label":"Our programs","url":"/programs/","kind":"custom","isTopLevelLink":true} /-->
+
+<!-- wp:navigation-link {"label":"Gallery","url":"/get-involved/","kind":"custom","isTopLevelLink":true} /-->
+
+<!-- wp:navigation-link {"label":"Contact us","url":"/contact-us/","kind":"custom","isTopLevelLink":true} /-->
+<!-- /wp:navigation --></div>
 <!-- /wp:column -->
 
 <!-- wp:column -->
@@ -23,5 +35,9 @@
 <p>Newsletter signup form goes here (phase 6).</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:column --></div>
-<!-- /wp:columns --></div>
+<!-- /wp:columns -->
+
+<!-- wp:paragraph {"fontSize":"small","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
+<p class="has-small-font-size" style="margin-top:var(--wp--preset--spacing--40)">© Hamilton Black Health Community Leaders Forum. All rights reserved.</p>
+<!-- /wp:paragraph --></div>
 <!-- /wp:group -->

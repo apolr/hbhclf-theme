@@ -176,7 +176,8 @@
 					"size": "8rem"
 				}
 			]
-		}
+		},
+		"useRootPaddingAwareAlignments": true
 	},
 	"styles": {
 		"color": {
@@ -225,6 +226,12 @@
 						"right": "1.8em"
 					}
 				}
+			}
+		},
+		"spacing": {
+			"padding": {
+				"left": "var(--wp--preset--spacing--30)",
+				"right": "var(--wp--preset--spacing--30)"
 			}
 		}
 	},
