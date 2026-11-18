@@ -52,3 +52,10 @@ Text Domain: hbhclf
 .hb-person__photo img { width: 100%; aspect-ratio: 1; object-fit: cover; }
 .hb-person__initials { aspect-ratio: 1; width: 100%; margin: 0; }
 #newsletter { scroll-margin-top: 2rem; }
+
+/* Posts: portrait photos stay modest; logo galleries show whole logos; gallery photos get soft corners. */
+.hb-portrait { max-width: 320px; }
+.hb-portrait img { border-radius: 12px; }
+.wp-block-gallery.has-nested-images figure.wp-block-image img { border-radius: 8px; }
+.hb-member-logos.wp-block-gallery figure.wp-block-image { align-items: center; justify-content: center; }
+.hb-member-logos.wp-block-gallery figure.wp-block-image img { object-fit: contain; max-height: 120px; width: auto; margin: 0 auto; }
