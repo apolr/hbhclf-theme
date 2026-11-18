@@ -37,3 +37,12 @@ Text Domain: hbhclf
 @media (prefers-reduced-motion: reduce) {
 	* { animation: none !important; transition-duration: 0.01ms !important; }
 }
+
+/* Logo rows (partners and funders). */
+.hb-logos { gap: var(--wp--preset--spacing--30); }
+.hb-logos .wp-block-image { margin: 0; }
+.hb-logos img { height: 80px; width: auto; max-width: 200px; object-fit: contain; }
+
+/* Query grid cards. */
+.wp-block-post-template .wp-block-post-title a { text-decoration: none; }
+.wp-block-post-featured-image img { border-radius: 12px; }
