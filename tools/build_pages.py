@@ -3,6 +3,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from blocks import *
 
+VOL_URL = '/inahita-kijiji-kulea-mtoto/abusua-elder-volunteer/'
 OUT = os.path.join(os.path.dirname(__file__), '..', 'content')
 
 def feature(img, alt, inner, flip=False, bg=None, text=None, anchor=None):
@@ -189,8 +190,13 @@ def inahitaji():
         + "\n\n" + heading('Time commitment and honorarium', 3, 'large') + "\n\n" + lst(['Flexible, part-time participation based on program and community needs, including sessions, circles, consultations, family support, meetings and town halls.', 'Some evening or weekend participation may be required.', 'Volunteers receive an honorarium; the program will communicate the amount, schedule and requirements. The honorarium does not create an employment relationship.'])
         + "\n\n" + heading('How to apply', 3, 'large') + "\n\n" + para('Please send your resume to <a href="mailto:info@hbhclf.org?subject=ABUSUA/Elder%20Volunteer%20Application">info@hbhclf.org</a> as soon as possible.', raw=True)
         + "\n\n" + button('Apply now: register to volunteer', '#volunteer-form', orange=True))
-    t.append(section(vol, content='900px', bg='black', text='white', anchor='volunteer'))
-    t.append(section(heading('Register to volunteer as an ABUSUA/Elder', 2, 'x-large') + "\n\n" + shortcode('[fluentform id="7"]'), content='800px', anchor='volunteer-form'))
+    write('abusua-elder-volunteer.html', [
+        page_hero('ABUSUA/Elder Volunteer', 'Share your wisdom with African/Black families and youth in Hamilton'),
+        section(vol, content='900px'),
+        section(heading('Register to volunteer as an ABUSUA/Elder', 2, 'x-large') + "\n\n" + shortcode('[fluentform id="7"]'), content='800px', anchor='volunteer-form', bg='black', text='white')])
+    t.append(section(kicker('Now recruiting: volunteer opportunity', 'amber') + "\n\n" + heading('Become an ABUSUA/Elder Volunteer', 2, 'x-large')
+        + "\n\n" + para('Are you a respected community member with cultural knowledge and lived experience? Help guide parents, caregivers, families and youth as part of the village. This volunteer role comes with an honorarium.')
+        + "\n\n" + button('See the role and apply', VOL_URL, orange=True), content='900px', bg='black', text='white', anchor='volunteer'))
     t.append(section(heading('Be among the first to know', 2, 'x-large', 'center') + "\n\n" + para('Inahitaji Kijiji Kulea Mtoto is coming soon to Hamilton.', 'large', align='center')
         + "\n\n" + para('We are preparing to welcome families and community members into this new initiative. Join the HBHCLF mailing list for launch updates, or contact us if you would like to learn more about family support or community partnership opportunities.', align='center')
         + "\n\n" + buttons([('Get program updates', '/join-our-mailing-list/'), ('I’m interested in family support', '/contact-us/'), ('I’m a community or service partner', '/contact-us/')]).replace('<div class="wp-block-buttons">', '<div class="wp-block-buttons">', 1), bg='orange', text='black', content='900px'))
