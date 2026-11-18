@@ -1,0 +1,118 @@
+/*
+ * HBHCLF motion layer.
+ * Hidden start states only apply when the script has run (html.hb-js),
+ * so the site stays fully readable without JavaScript.
+ */
+
+/* ---------- Hero: crossfade slides ---------- */
+.hb-hero {
+	position: relative;
+	overflow: hidden;
+	min-height: 70vh;
+	background: var(--wp--preset--color--black);
+}
+.hb-hero > .hb-hero__slide {
+	position: absolute;
+	inset: 0;
+	margin: 0;
+	min-height: 100%;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity var(--hb-fade) ease, visibility 0s linear var(--hb-fade);
+}
+.hb-hero > .hb-hero__slide:first-child,
+.hb-hero > .hb-hero__slide.is-active {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity var(--hb-fade) ease, visibility 0s;
+}
+/* With JS running, only the slide marked active shows. */
+.hb-js .hb-hero > .hb-hero__slide:first-child:not(.is-active) {
+	opacity: 0;
+	visibility: hidden;
+}
+
+/* ---------- Hero: slow background zoom (100% to 115%) ---------- */
+.hb-hero__slide .wp-block-cover__image-background,
+.hb-hero__slide .wp-block-cover__video-background {
+	transform: scale(1);
+	transform-origin: center;
+}
+.hb-js .hb-hero__slide.is-active .wp-block-cover__image-background,
+.hb-js .hb-hero__slide.is-active .wp-block-cover__video-background {
+	animation: hb-zoom var(--hb-zoom) ease-out forwards;
+}
+@keyframes hb-zoom {
+	from { transform: scale(1); }
+	to { transform: scale(1.15); }
+}
+
+/* ---------- Text rise: 50px over 1s, staggered ---------- */
+.hb-js .hb-hero__slide .hb-rise {
+	opacity: 0;
+	transform: translateY(var(--hb-rise-distance));
+}
+.hb-js .hb-hero__slide.is-active .hb-rise {
+	animation: hb-rise var(--hb-rise) cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+.hb-js .hb-hero__slide.is-active .hb-rise:nth-child(1) { animation-delay: var(--hb-stagger-1); }
+.hb-js .hb-hero__slide.is-active .hb-rise:nth-child(2) { animation-delay: var(--hb-stagger-2); }
+.hb-js .hb-hero__slide.is-active .hb-rise:nth-child(n+3) { animation-delay: var(--hb-stagger-3); }
+@keyframes hb-rise {
+	from { opacity: 0; transform: translateY(var(--hb-rise-distance)); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Hero controls (dots) ---------- */
+.hb-hero__dots {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 1.25rem;
+	z-index: 5;
+	display: flex;
+	justify-content: center;
+	gap: 0.6rem;
+}
+.hb-hero__dots button {
+	width: 0.75rem;
+	height: 0.75rem;
+	padding: 0;
+	border: 2px solid var(--wp--preset--color--white);
+	border-radius: 50%;
+	background: transparent;
+	cursor: pointer;
+	transition: background-color var(--hb-button) ease;
+}
+.hb-hero__dots button[aria-current="true"],
+.hb-hero__dots button:hover {
+	background: var(--wp--preset--color--orange);
+	border-color: var(--wp--preset--color--orange);
+}
+
+/* ---------- Scroll reveal for the rest of the page ---------- */
+.hb-js .hb-reveal {
+	opacity: 0;
+	transform: translateY(var(--hb-rise-distance));
+	transition: opacity var(--hb-rise) ease, transform var(--hb-rise) cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.hb-js .hb-reveal.is-visible {
+	opacity: 1;
+	transform: none;
+}
+
+/* ---------- Reduced motion: no zoom, no rise, no cycling ---------- */
+@media (prefers-reduced-motion: reduce) {
+	.hb-js .hb-hero__slide .hb-rise,
+	.hb-js .hb-reveal {
+		opacity: 1 !important;
+		transform: none !important;
+		animation: none !important;
+		transition: none !important;
+	}
+	.hb-hero__slide .wp-block-cover__image-background,
+	.hb-hero__slide .wp-block-cover__video-background {
+		animation: none !important;
+		transform: none !important;
+	}
+}
