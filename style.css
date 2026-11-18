@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.4.0
+Version: 0.5.0
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -89,3 +89,16 @@ body.admin-bar .hb-header { top: 32px; }
 .hb-nav .is-menu-open .wp-block-navigation-item__content { font-size: 1.15rem; }
 /* Full-width coloured bands sit flush against each other (no white strips). */
 .wp-block-post-content > .alignfull { margin-block-start: 0; margin-block-end: 0; }
+
+/* Forms: Fluent Forms and the MailPoet signup share the theme's look (rounded fields, black pill button turning orange). */
+.fluentform .ff-el-form-control { border-radius: 10px; border-color: #c9c9c9; padding: .7rem .9rem; font-family: inherit; font-size: 1rem; }
+.fluentform .ff-el-form-control:focus { border-color: var(--wp--preset--color--orange); box-shadow: 0 0 0 3px rgba(247,148,29,.25); }
+.fluentform .ff-el-input--label label { font-weight: 600; }
+.fluentform .ff-btn-submit, .fluentform .ff-btn-submit:hover { background-color: var(--wp--preset--color--black) !important; color: #fff !important; border: 0 !important; border-radius: 999px !important; padding: .85rem 2rem !important; font-weight: 600; transition: background-color var(--hb-button) ease; }
+.fluentform .ff-btn-submit:hover, .fluentform .ff-btn-submit:focus-visible { background-color: var(--wp--preset--color--orange) !important; color: var(--wp--preset--color--black) !important; }
+footer .mailpoet_form { padding: 0 !important; margin: 0; }
+footer .mailpoet_form .mailpoet_paragraph { margin-bottom: .6rem !important; }
+footer .mailpoet_form input.mailpoet_text, footer .mailpoet_form input[type="email"], footer .mailpoet_form input[type="text"] { width: 100% !important; border-radius: 999px !important; border: 0 !important; padding: .75rem 1.1rem !important; font: inherit; color: #111; background: #fff; }
+footer .mailpoet_form input.mailpoet_submit { border-radius: 999px !important; border: 0 !important; padding: .75rem 1.6rem !important; background: var(--wp--preset--color--orange) !important; color: #111 !important; font: 600 1rem/1 inherit; cursor: pointer; }
+footer .mailpoet_form input.mailpoet_submit:hover { background: #fff !important; }
+footer .mailpoet_form label, footer .mailpoet_form .mailpoet_message { color: #fff; }

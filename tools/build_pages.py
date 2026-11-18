@@ -144,7 +144,7 @@ def gallery():
 
 # ---------------- Contact (page 216) ----------------
 def contact():
-    form = heading('Send a quick message', 4, 'large') + "\n\n" + para('[Contact form goes here. It is built with Fluent Forms in phase 6, with fields Full Name, Phone, Email and Message, sending to info@hbhclf.org.]', 'small')
+    form = heading('Send a quick message', 4, 'large') + "\n\n" + shortcode('[fluentform id="1"]')
     details = (heading('Want to meet in person?', 4, 'large') + "\n\n" + heading('Coffee is on us', 2, 'x-large')
         + "\n\n" + heading('Give us a call', 3, 'medium') + "\n\n" + para('289-408-8634')
         + "\n\n" + heading('Our mailing address', 3, 'medium') + "\n\n" + para('268-762 Upper James Street, Hamilton, ON L9C3A2')
@@ -226,6 +226,6 @@ def inahitaji():
 
 if __name__ == '__main__':
     about(); programs(); gallery(); contact(); newcomers(); inahitaji()
-    for f in sorted(os.listdir(OUT)):
+    for f in sorted(x for x in os.listdir(OUT) if x.endswith('.html')):
         s = open(os.path.join(OUT, f)).read()
         print(f.ljust(32), len(s), 'chars', s.count('<!-- wp:'), 'blocks')

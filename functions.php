@@ -12,6 +12,7 @@ add_action( 'after_setup_theme', function () {
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'editor-styles' );
 	add_editor_style( 'style.css' );
+	add_post_type_support( 'page', 'excerpt' ); // page summary used as the search description
 } );
 
 // Motion layer: one small stylesheet and one small script, no libraries.
@@ -40,3 +41,6 @@ add_action( 'wp_enqueue_scripts', function () {
 		array( 'in_footer' => true, 'strategy' => 'defer' )
 	);
 } );
+
+// Search and sharing basics (meta description, link previews, structured data, llms.txt).
+require_once get_template_directory() . '/inc/seo.php';
