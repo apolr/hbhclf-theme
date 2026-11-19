@@ -8,7 +8,7 @@
 .hb-hero {
 	position: relative;
 	overflow: hidden;
-	min-height: 70vh;
+	min-height: 86vh;
 	background: var(--wp--preset--color--black);
 }
 .hb-hero > .hb-hero__slide {
@@ -90,29 +90,114 @@
 	border-color: var(--wp--preset--color--orange);
 }
 
-/* ---------- Scroll reveal for the rest of the page ---------- */
-.hb-js .hb-reveal {
+/* ---------- Scroll reveal: the band stays put, its content rises in, staggered ---------- */
+.hb-js .hb-reveal > * {
 	opacity: 0;
 	transform: translateY(var(--hb-rise-distance));
 	transition: opacity var(--hb-rise) ease, transform var(--hb-rise) cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.hb-js .hb-reveal.is-visible {
-	opacity: 1;
-	transform: none;
+.hb-js .hb-reveal.is-visible > * { opacity: 1; transform: none; }
+.hb-js .hb-reveal.is-visible > *:nth-child(2) { transition-delay: 120ms; }
+.hb-js .hb-reveal.is-visible > *:nth-child(3) { transition-delay: 240ms; }
+.hb-js .hb-reveal.is-visible > *:nth-child(n+4) { transition-delay: 360ms; }
+/* Columns inside a revealed band arrive one after another. */
+.hb-js .hb-reveal .wp-block-columns > .wp-block-column {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity var(--hb-rise) ease, transform var(--hb-rise) cubic-bezier(0.2, 0.7, 0.2, 1);
 }
+.hb-js .hb-reveal.is-visible .wp-block-columns > .wp-block-column { opacity: 1; transform: none; }
+.hb-js .hb-reveal.is-visible .wp-block-columns > .wp-block-column:nth-child(2) { transition-delay: 150ms; }
+.hb-js .hb-reveal.is-visible .wp-block-columns > .wp-block-column:nth-child(3) { transition-delay: 300ms; }
+
+/* ---------- Floating shapes (injected by motion.js, decorative only) ---------- */
+.hb-has-shapes { position: relative; overflow: hidden; isolation: isolate; }
+.hb-shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.hb-band.hb-has-shapes > *:not(.hb-shapes) { position: relative; z-index: 1; }
+.hb-hero > .hb-shapes { z-index: 2; }
+.hb-shape {
+	position: absolute;
+	border-radius: 999px;
+	opacity: .9;
+	animation: hb-float 9s ease-in-out infinite;
+	will-change: transform;
+}
+.hb-shape--1 { width: 22px; height: 22px; background: var(--wp--preset--color--orange); top: 14%; left: 6%; }
+.hb-shape--2 { width: 14px; height: 14px; background: var(--wp--preset--color--green); top: 70%; left: 12%; animation-duration: 11s; animation-delay: -3s; }
+.hb-shape--3 { width: 30px; height: 30px; background: var(--wp--preset--color--blue); top: 20%; right: 8%; animation-duration: 13s; animation-delay: -5s; }
+.hb-shape--4 { width: 12px; height: 12px; background: var(--wp--preset--color--red); bottom: 16%; right: 18%; animation-duration: 10s; animation-delay: -2s; }
+.hb-shape--5 { width: 180px; height: 46px; background: var(--wp--preset--color--amber); bottom: -14px; right: -40px; transform: rotate(-55deg); opacity: .85; animation-name: hb-float-pill; animation-duration: 14s; }
+/* On coloured bands only the corner accents show, softer, so text stays easy to read. */
+.hb-band .hb-shape--1, .hb-band .hb-shape--2, .hb-band .hb-shape--4 { display: none; }
+.hb-band .hb-shape--3 { top: 10%; right: 3%; }
+.hb-band .hb-shape { opacity: .35; }
+.hb-band .hb-shape--5 { opacity: .25; }
+.has-orange-background-color.hb-band .hb-shape--1,
+.has-orange-background-color.hb-band .hb-shape--5 { background: var(--wp--preset--color--black); opacity: .12; }
+.has-green-background-color.hb-band .hb-shape--2 { background: var(--wp--preset--color--black); opacity: .15; }
+@keyframes hb-float {
+	0%, 100% { transform: translate(0, 0); }
+	50% { transform: translate(10px, -18px); }
+}
+@keyframes hb-float-pill {
+	0%, 100% { transform: rotate(-55deg) translateY(0); }
+	50% { transform: rotate(-55deg) translateY(-16px); }
+}
+@media (max-width: 600px) {
+	.hb-shape--5 { width: 110px; height: 30px; }
+	.hb-shape--3 { width: 20px; height: 20px; }
+}
+
+/* ---------- Photos zoom gently on hover ---------- */
+.hb-reveal .wp-block-image:not(.hb-person__photo) { overflow: hidden; }
+.hb-reveal .wp-block-image:not(.hb-person__photo) img,
+.wp-block-post-featured-image img {
+	transition: transform .7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.hb-reveal .wp-block-image:not(.hb-person__photo):hover img,
+.wp-block-post-featured-image:hover img { transform: scale(1.06); }
+.wp-block-post-featured-image { overflow: hidden; border-radius: 12px; }
+
+/* ---------- Text cards (title plus short text) lift on hover ---------- */
+.hb-reveal .wp-block-column:not(:has(.wp-block-image, .wp-block-column, .wp-block-list, .wp-block-group)):has(> h3:first-child + p:last-child) {
+	padding: 1.75rem;
+	border-radius: 18px;
+	background: rgba(255, 255, 255, .06);
+	box-shadow: inset 0 0 0 1px rgba(127, 127, 127, .18);
+	transition: transform .35s ease, box-shadow .35s ease, background-color .35s ease;
+}
+.hb-reveal:not(.has-background) .wp-block-column:not(:has(.wp-block-image, .wp-block-column, .wp-block-list, .wp-block-group)):has(> h3:first-child + p:last-child) {
+	background: #f6f5f2;
+	box-shadow: none;
+}
+.hb-reveal .wp-block-column:not(:has(.wp-block-image, .wp-block-column, .wp-block-list, .wp-block-group)):has(> h3:first-child + p:last-child):hover {
+	transform: translateY(-8px);
+	box-shadow: 0 18px 40px rgba(0, 0, 0, .14);
+}
+
+/* ---------- Partner and funder logos scroll sideways, pausing on hover ---------- */
+.hb-marquee { overflow: hidden; width: 100%; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.hb-marquee__track { display: flex !important; flex-wrap: nowrap !important; gap: 3.5rem !important; width: max-content; align-items: center; animation: hb-marquee var(--hb-marquee, 30s) linear infinite; }
+.hb-marquee:hover .hb-marquee__track { animation-play-state: paused; }
+.hb-marquee__track > figure { flex: 0 0 auto; margin: 0 !important; }
+@keyframes hb-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ---------- Reduced motion: no zoom, no rise, no cycling ---------- */
 @media (prefers-reduced-motion: reduce) {
 	.hb-js .hb-hero__slide .hb-rise,
-	.hb-js .hb-reveal {
+	.hb-js .hb-reveal > *,
+	.hb-js .hb-reveal .wp-block-columns > .wp-block-column {
 		opacity: 1 !important;
 		transform: none !important;
 		animation: none !important;
 		transition: none !important;
 	}
 	.hb-hero__slide .wp-block-cover__image-background,
-	.hb-hero__slide .wp-block-cover__video-background {
+	.hb-hero__slide .wp-block-cover__video-background,
+	.hb-shape, .hb-marquee__track {
 		animation: none !important;
-		transform: none !important;
 	}
+	.hb-hero__slide .wp-block-cover__image-background { transform: none !important; }
+	.hb-marquee__track { flex-wrap: wrap !important; width: auto; justify-content: center; }
+	.hb-marquee { -webkit-mask-image: none; mask-image: none; }
 }

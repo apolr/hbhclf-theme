@@ -112,8 +112,52 @@
 		} );
 	}
 
+	// Decorative floating shapes in the hero and on full-width coloured bands.
+	function addShapes( el ) {
+		if ( el.querySelector( ':scope > .hb-shapes' ) ) {
+			return;
+		}
+		var wrap = document.createElement( 'div' );
+		wrap.className = 'hb-shapes';
+		wrap.setAttribute( 'aria-hidden', 'true' );
+		for ( var i = 1; i <= 5; i++ ) {
+			var s = document.createElement( 'span' );
+			s.className = 'hb-shape hb-shape--' + i;
+			wrap.appendChild( s );
+		}
+		el.classList.add( 'hb-has-shapes' );
+		el.insertBefore( wrap, el.firstChild );
+	}
+
+	// Logo rows become a slow sideways scroller (content duplicated once for a seamless loop).
+	function initMarquee( row ) {
+		if ( row.closest( '.hb-marquee' ) || row.children.length < 4 ) {
+			return;
+		}
+		var outer = document.createElement( 'div' );
+		outer.className = 'hb-marquee';
+		row.parentNode.insertBefore( outer, row );
+		outer.appendChild( row );
+		row.classList.add( 'hb-marquee__track' );
+		Array.prototype.slice.call( row.children ).forEach( function ( child ) {
+			var copy = child.cloneNode( true );
+			copy.setAttribute( 'aria-hidden', 'true' );
+			copy.querySelectorAll( 'img' ).forEach( function ( img ) { img.alt = ''; } );
+			row.appendChild( copy );
+		} );
+		row.style.setProperty( '--hb-marquee', ( row.children.length * 3 ) + 's' );
+	}
+
 	function init() {
-		document.querySelectorAll( '.hb-hero' ).forEach( initHero );
+		document.querySelectorAll( '.hb-hero' ).forEach( function ( hero ) {
+			initHero( hero );
+			addShapes( hero );
+		} );
+		document.querySelectorAll( '.wp-block-post-content > .alignfull.has-background:not(.hb-hero)' ).forEach( function ( band ) {
+			band.classList.add( 'hb-band' );
+			addShapes( band );
+		} );
+		document.querySelectorAll( '.hb-logos' ).forEach( initMarquee );
 		initReveal();
 	}
 

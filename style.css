@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.5.0
+Version: 0.6.0
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -102,3 +102,8 @@ footer .mailpoet_form input.mailpoet_text, footer .mailpoet_form input[type="ema
 footer .mailpoet_form input.mailpoet_submit { border-radius: 999px !important; border: 0 !important; padding: .75rem 1.6rem !important; background: var(--wp--preset--color--orange) !important; color: #111 !important; font: 600 1rem/1 inherit; cursor: pointer; }
 footer .mailpoet_form input.mailpoet_submit:hover { background: #fff !important; }
 footer .mailpoet_form label, footer .mailpoet_form .mailpoet_message { color: #fff; }
+
+/* Buttons per the design brief: uppercase, bold, 14px, black pill turning orange. */
+.wp-element-button, .wp-block-button__link { text-transform: uppercase; letter-spacing: .06em; font-weight: 700; font-size: .875rem; padding: .95rem 1.9rem; }
+/* Hero: a soft dark gradient so headlines read well over any photo. */
+.hb-hero__slide .wp-block-cover__background { background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.55) 100%) !important; opacity: 1 !important; }
