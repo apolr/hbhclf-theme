@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.9.6
+Version: 0.9.7
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -735,3 +735,24 @@ html.hb-lb-open { overflow: hidden; }
 	.hb-lb__img { max-height: calc(100% - 8rem); }
 }
 @media (prefers-reduced-motion: reduce) { .hb-lb, .hb-lb__img, .hb-lb-thumb { transition: none; } }
+
+/* Archive and Press Release headers (0.9.7): same look as page headers, with a wave. */
+.hb-archive-head {
+	position: relative;
+	isolation: isolate;
+	margin-top: 0 !important;
+	min-height: clamp(320px, 34vw, 460px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: calc(var(--hb-pad) * .9) var(--wp--preset--spacing--30) calc(var(--hb-pad) * .9 + var(--hb-wave) * .6) !important;
+	background-color: var(--hb-green-deep) !important;
+	background-size: cover !important;
+	background-position: center !important;
+	-webkit-mask: url("assets/img/wave-bottom.svg") center bottom / 260% var(--hb-wave) no-repeat, linear-gradient(#000, #000) top / 100% calc(100% - var(--hb-wave) + 1px) no-repeat;
+	mask: url("assets/img/wave-bottom.svg") center bottom / 260% var(--hb-wave) no-repeat, linear-gradient(#000, #000) top / 100% calc(100% - var(--hb-wave) + 1px) no-repeat;
+}
+.hb-archive-head h1 { margin: 0; color: #fff; text-shadow: 0 2px 18px rgba(0, 0, 0, .25); }
+.hb-archive-head p, .hb-archive-head .wp-block-term-description { max-width: 46rem; margin: 1rem auto 0 !important; opacity: .95; }
+.hb-head--press { background-image: url("assets/img/press-release.webp") !important; }
+.hb-archive-head + main { padding-top: var(--hb-pad) !important; }
