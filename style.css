@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.9.1
+Version: 0.9.2
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -559,3 +559,63 @@ footer .mailpoet_form input.mailpoet_submit { background: var(--hb-gold) !import
 }
 .hb-nav .is-menu-open .wp-block-navigation__submenu-container { border-radius: 0 !important; }
 .hb-nav .is-menu-open .wp-block-navigation-item__content[aria-current="page"] { color: var(--hb-gold) !important; }
+/* Footer newsletter (0.9.2): blend the MailPoet form into the green footer. */
+footer #mailpoet_form_1 { background: none !important; border-radius: 0 !important; padding: 0 !important; margin-top: .25rem; }
+footer #mailpoet_form_1 form.mailpoet_form { padding: 0 !important; }
+footer #mailpoet_form_1 p:empty { display: none !important; }
+footer #mailpoet_form_1 h2.mailpoet-heading:first-of-type { display: none !important; }
+footer #mailpoet_form_1 h2.mailpoet-heading,
+footer #mailpoet_form_1 h2.mailpoet-heading * {
+	font-family: inherit !important;
+	font-size: .95rem !important;
+	font-weight: 500 !important;
+	line-height: 1.5 !important;
+	color: rgba(255, 255, 255, .85) !important;
+	text-align: left !important;
+	margin: 0 0 1rem !important;
+}
+footer #mailpoet_form_1 h2.mailpoet-heading strong { font-weight: 500 !important; }
+footer #mailpoet_form_1 .mailpoet_paragraph { margin-bottom: .75rem !important; }
+footer #mailpoet_form_1 input.mailpoet_text {
+	width: 100% !important;
+	background: #fff !important;
+	color: #111 !important;
+	border: 2px solid transparent !important;
+	border-radius: 999px !important;
+	padding: .85rem 1.25rem !important;
+	font-family: inherit !important;
+	font-size: 1rem !important;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, .15);
+}
+footer #mailpoet_form_1 input.mailpoet_text:focus { border-color: var(--hb-gold) !important; outline: none; }
+footer #mailpoet_form_1 input.mailpoet_text::placeholder { color: #667; }
+footer #mailpoet_form_1 input.mailpoet_submit {
+	width: 100% !important;
+	background: var(--hb-gold) !important;
+	color: var(--hb-green-deep) !important;
+	border: 0 !important;
+	border-radius: 999px !important;
+	padding: .9rem 1.5rem !important;
+	font-family: inherit !important;
+	font-size: .95rem !important;
+	font-weight: 800 !important;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	cursor: pointer;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+	transition: background .2s, color .2s, transform .2s;
+}
+footer #mailpoet_form_1 input.mailpoet_submit:hover { background: var(--hb-red) !important; color: #fff !important; transform: translateY(-1px); }
+footer #mailpoet_form_1 .mailpoet_form_paragraph,
+footer #mailpoet_form_1 .mailpoet_form_paragraph * {
+	font-family: inherit !important;
+	font-size: .8rem !important;
+	font-weight: 400 !important;
+	line-height: 1.5 !important;
+	color: rgba(255, 255, 255, .7) !important;
+	text-align: left !important;
+}
+footer #mailpoet_form_1 .mailpoet_form_paragraph a { color: #fff !important; text-decoration: underline; }
+footer #mailpoet_form_1 .mailpoet_message p { color: #fff !important; font-weight: 600; }
+footer #mailpoet_form_1 .mailpoet_validate_error, footer #mailpoet_form_1 .parsley-errors-list { color: #FFD7D9 !important; }
+footer #mailpoet_form_1 form.mailpoet_form > br, footer #mailpoet_form_1 > p:empty { display: none !important; }

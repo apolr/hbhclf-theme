@@ -44,3 +44,15 @@ add_action( 'wp_enqueue_scripts', function () {
 
 // Search and sharing basics (meta description, link previews, structured data, llms.txt).
 require_once get_template_directory() . '/inc/seo.php';
+
+/**
+ * The MailPoet form prints its own <style> block. The Shortcode block runs
+ * wpautop over it, which breaks that CSS with stray <p> tags. Render the
+ * MailPoet shortcode cleanly instead.
+ */
+add_filter( 'render_block', function ( $html, $block ) {
+	if ( 'core/shortcode' === ( $block['blockName'] ?? '' ) && false !== strpos( $block['innerHTML'] ?? '', 'mailpoet_form' ) ) {
+		return do_shortcode( trim( $block['innerHTML'] ) );
+	}
+	return $html;
+}, 10, 2 );
