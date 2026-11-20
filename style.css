@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.9.0
+Version: 0.9.1
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -428,3 +428,134 @@ footer .mailpoet_form input.mailpoet_submit { background: var(--hb-gold) !import
 .wp-block-post-content .wp-block-column:has(> .wp-block-image a) > p.has-small-font-size { color: var(--hb-red); font-weight: 600; margin-bottom: .2rem; }
 .wp-block-post-content .wp-block-column:has(> .wp-block-image a) > h3 { margin-top: .2rem; }
 .wp-block-post-content .wp-block-columns:has(.wp-block-image a) + .wp-block-columns { margin-top: 2.5rem; }
+
+/* ==========================================================================
+   Mobile menu overlay (0.9.1)
+   ========================================================================== */
+.hb-nav .wp-block-navigation__responsive-container.is-menu-open {
+	background: linear-gradient(165deg, var(--hb-green-deep) 0%, var(--hb-green-dark) 55%, #0E6B33 100%) !important;
+	color: #fff !important;
+	padding: 0 !important;
+	overflow-y: auto;
+	animation: hbMenuIn .35s ease both;
+}
+.hb-nav .wp-block-navigation__responsive-container.is-menu-open::before {
+	content: "";
+	position: absolute;
+	top: 0; left: 0; right: 0;
+	height: 6px;
+	background: url("/wp-content/uploads/2024/08/header_footer_pattern.png") repeat-x center / auto 6px, linear-gradient(90deg, var(--hb-red), var(--hb-gold), var(--hb-green));
+}
+.hb-nav .is-menu-open .wp-block-navigation__responsive-close { max-width: none; }
+.hb-nav .is-menu-open .wp-block-navigation__responsive-dialog { margin-top: 0 !important; }
+/* Close button: white, in a soft circle. */
+.hb-nav .is-menu-open .wp-block-navigation__responsive-container-close {
+	top: 22px !important;
+	right: 20px !important;
+	width: 44px; height: 44px;
+	display: flex; align-items: center; justify-content: center;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, .12) !important;
+	color: #fff !important;
+	transition: background .2s, transform .3s;
+}
+.hb-nav .is-menu-open .wp-block-navigation__responsive-container-close:hover { background: var(--hb-red) !important; transform: rotate(90deg); }
+.hb-nav .is-menu-open .wp-block-navigation__responsive-container-close svg { fill: currentColor; width: 26px; height: 26px; }
+/* Layout of the list. */
+.hb-nav .is-menu-open .wp-block-navigation__responsive-container-content {
+	padding: 22px 28px 40px !important;
+	align-items: stretch !important;
+	gap: 0 !important;
+	min-height: 100%;
+}
+.hb-nav .is-menu-open .wp-block-navigation__responsive-container-content > .wp-block-navigation__container {
+	align-items: stretch !important;
+	gap: 0 !important;
+	width: 100%;
+	margin-top: 1.5rem;
+}
+.hb-nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item {
+	width: 100%;
+	align-items: flex-start !important;
+	border-bottom: 1px solid rgba(255, 255, 255, .14);
+	animation: hbMenuItem .45s ease both;
+}
+.hb-nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item:nth-child(2) { animation-delay: .04s; }
+.hb-nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item:nth-child(3) { animation-delay: .08s; }
+.hb-nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item:nth-child(4) { animation-delay: .12s; }
+.hb-nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item:nth-child(5) { animation-delay: .16s; }
+.hb-nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item:nth-child(6) { animation-delay: .2s; }
+.hb-nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item:nth-child(7) { animation-delay: .24s; }
+.hb-nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content {
+	display: flex !important;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 1rem 0 !important;
+	color: #fff !important;
+	font-size: 1.35rem !important;
+	font-weight: 700 !important;
+	letter-spacing: -.01em;
+	text-align: left;
+}
+.hb-nav .is-menu-open .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content::after {
+	content: "\203A";
+	font-size: 1.6rem;
+	font-weight: 400;
+	line-height: 1;
+	color: var(--hb-gold);
+	opacity: .8;
+	transition: transform .2s;
+}
+.hb-nav .is-menu-open .wp-block-navigation-item__content:hover::after { transform: translateX(4px); }
+.hb-nav .is-menu-open .wp-block-navigation-item__content:hover,
+.hb-nav .is-menu-open .wp-block-navigation-item__content:focus { color: var(--hb-gold) !important; }
+.hb-nav .is-menu-open .current-menu-item > .wp-block-navigation-item__content { color: var(--hb-gold) !important; }
+/* Sub-items: smaller, indented, with a gold rule. */
+.hb-nav .is-menu-open .wp-block-navigation__submenu-container {
+	width: 100%;
+	margin: -.25rem 0 1rem !important;
+	padding: 0 0 0 1rem !important;
+	border-left: 2px solid var(--hb-gold) !important;
+	background: transparent !important;
+	gap: 0 !important;
+}
+.hb-nav .is-menu-open .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+	padding: .55rem 0 !important;
+	font-size: 1.02rem !important;
+	font-weight: 500 !important;
+	color: rgba(255, 255, 255, .82) !important;
+	text-align: left;
+}
+.hb-nav .is-menu-open .wp-block-navigation__submenu-icon { display: none !important; }
+/* Logo, Donate and Instagram added by the theme script. */
+.hb-menu-extra { display: none; }
+.is-menu-open .hb-menu-extra { display: flex; }
+.hb-menu-logo { padding-right: 60px; }
+.hb-menu-logo a { display: inline-flex; background: #fff; border-radius: 14px; padding: 8px 14px; box-shadow: 0 8px 24px rgba(0, 0, 0, .2); }
+.hb-menu-logo img { width: 140px; height: auto; display: block; }
+.hb-menu-foot { flex-direction: column; gap: 1rem; margin-top: 2rem; animation: hbMenuItem .5s .28s ease both; }
+.hb-menu-donate {
+	display: block;
+	text-align: center;
+	padding: 1rem 1.5rem;
+	border-radius: 999px;
+	background: var(--hb-red);
+	color: #fff !important;
+	font-weight: 800;
+	font-size: 1rem;
+	letter-spacing: .08em;
+	text-transform: uppercase;
+	text-decoration: none;
+	box-shadow: 0 10px 24px rgba(237, 28, 36, .35);
+}
+.hb-menu-donate:hover { background: var(--hb-gold); color: var(--hb-green-deep) !important; }
+.hb-menu-social { display: inline-flex; align-items: center; gap: .6rem; color: #fff !important; text-decoration: none; font-weight: 500; opacity: .9; }
+.hb-menu-social svg { width: 26px; height: 26px; fill: #fff; }
+@keyframes hbMenuIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hbMenuItem { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+	.hb-nav .is-menu-open, .hb-nav .is-menu-open .wp-block-navigation-item, .hb-menu-foot { animation: none !important; }
+}
+.hb-nav .is-menu-open .wp-block-navigation__submenu-container { border-radius: 0 !important; }
+.hb-nav .is-menu-open .wp-block-navigation-item__content[aria-current="page"] { color: var(--hb-gold) !important; }

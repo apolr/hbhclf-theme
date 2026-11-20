@@ -148,7 +148,47 @@
 		row.style.setProperty( '--hb-marquee', ( row.children.length * 3 ) + 's' );
 	}
 
+	/* Mobile menu: add the logo at the top and Donate plus Instagram at the bottom of the overlay. */
+	function initMobileMenu() {
+		document.querySelectorAll( '.hb-nav .wp-block-navigation__responsive-container-content' ).forEach( function ( box ) {
+			if ( box.querySelector( '.hb-menu-extra' ) ) { return; }
+			var header = box.closest( 'header' ) || document;
+			var logo = header.querySelector( '.hb-logo img' );
+			if ( logo ) {
+				var top = document.createElement( 'div' );
+				top.className = 'hb-menu-extra hb-menu-logo';
+				var a = document.createElement( 'a' );
+				a.href = '/';
+				a.setAttribute( 'aria-label', 'Home' );
+				var img = logo.cloneNode( false );
+				img.removeAttribute( 'srcset' );
+				img.removeAttribute( 'width' );
+				img.removeAttribute( 'height' );
+				a.appendChild( img );
+				top.appendChild( a );
+				box.insertBefore( top, box.firstChild );
+			}
+			var foot = document.createElement( 'div' );
+			foot.className = 'hb-menu-extra hb-menu-foot';
+			var donate = header.querySelector( '.hb-donate a' );
+			if ( donate ) {
+				var d = donate.cloneNode( true );
+				d.className = 'hb-menu-donate';
+				foot.appendChild( d );
+			}
+			var insta = header.querySelector( '.hb-social a' );
+			if ( insta ) {
+				var i = insta.cloneNode( true );
+				i.className = 'hb-menu-social';
+				i.insertAdjacentHTML( 'beforeend', '<span>Follow us on Instagram</span>' );
+				foot.appendChild( i );
+			}
+			box.appendChild( foot );
+		} );
+	}
+
 	function init() {
+		initMobileMenu();
 		document.querySelectorAll( '.hb-hero' ).forEach( function ( hero ) {
 			initHero( hero );
 			addShapes( hero );
