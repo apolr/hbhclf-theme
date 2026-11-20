@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.9.7
+Version: 0.10.0
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -756,3 +756,22 @@ html.hb-lb-open { overflow: hidden; }
 .hb-archive-head p, .hb-archive-head .wp-block-term-description { max-width: 46rem; margin: 1rem auto 0 !important; opacity: .95; }
 .hb-head--press { background-image: url("assets/img/press-release.webp") !important; }
 .hb-archive-head + main { padding-top: var(--hb-pad) !important; }
+
+/* Partners and funders (0.10.0): one shared block above the footer on every page. */
+.wp-site-blocks > .hb-partners, .wp-site-blocks > section.wp-block-template-part { margin-block-start: 0; }
+.hb-partners {
+	position: relative;
+	z-index: 40;
+	background: #fff;
+	padding-top: var(--hb-pad);
+	padding-bottom: calc(var(--hb-pad) * .6 + var(--hb-wave-foot));
+	margin-top: calc(-1 * var(--hb-wave-foot));
+	-webkit-mask: url("assets/img/wave-top.svg") center top / 156% var(--hb-wave-foot) no-repeat, linear-gradient(#000, #000) bottom / 100% calc(100% - var(--hb-wave-foot) + 1px) no-repeat;
+	mask: url("assets/img/wave-top.svg") center top / 156% var(--hb-wave-foot) no-repeat, linear-gradient(#000, #000) bottom / 100% calc(100% - var(--hb-wave-foot) + 1px) no-repeat;
+}
+.hb-partners > .hb-partners__row { padding-left: var(--wp--preset--spacing--30); padding-right: var(--wp--preset--spacing--30); }
+.hb-partners__row + .hb-partners__row { margin-top: var(--wp--preset--spacing--40); }
+.hb-partners__row h2 { margin-bottom: var(--wp--preset--spacing--30); color: var(--hb-green-dark); }
+.hb-partners__row .hb-logos img { height: 72px; }
+/* The footer tucks up over the partners block. */
+.wp-site-blocks > footer { z-index: 60; }

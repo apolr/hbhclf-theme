@@ -15,6 +15,29 @@ def logos(items):
     imgs = "\n\n".join(f'<!-- wp:image {{"sizeSlug":"medium","linkDestination":"none"}} -->\n<figure class="wp-block-image size-medium"><img src="{U}{p}" alt="{e(a)}"/></figure>\n<!-- /wp:image -->' for p, a in items)
     return ('<!-- wp:group {"className":"hb-logos","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center","verticalAlignment":"center"}} -->\n<div class="wp-block-group hb-logos">' + imgs + '</div>\n<!-- /wp:group -->')
 
+
+FAQ = [
+    ('What is the Hamilton Black Health Community Leaders Forum (HBHCLF)?',
+     'HBHCLF is a federally registered, non-partisan, non-profit organization that speaks for Hamilton’s African Diaspora Community at the municipal, provincial and federal levels. It was established on September 14, 2021 and inaugurated on May 28, 2022. Its work focuses on the social determinants of health, such as housing, income, education and access to care.'),
+    ('Who does HBHCLF serve?',
+     'HBHCLF serves people of African heritage living in Hamilton, Ontario, including families, seniors, youth and newcomers. It also represents the community before the City of Hamilton and the provincial and federal governments.'),
+    ('What programs does HBHCLF offer?',
+     'Current and upcoming work includes the Inahitaji Kijiji Kulea Mtoto family support initiative, the Vaccine Ambassador Program, the MentorAction program with Interval House of Hamilton, an African Outreach Worker for violence against women support, and a seniors program run with NURU Hamilton. See the <a href="/programs/">programs page</a> for details.'),
+    ('How can I volunteer with HBHCLF?',
+     'Complete the volunteer registration form to join the ABUSUA Elder program, or use the <a href="/contact-us/">contact page</a> to ask about other ways to help. A member of the team will reply by email.'),
+    ('I am new to Hamilton. How can HBHCLF help me?',
+     'Fill in the <a href="/newcomer_questionnaire/">Newcomer Questionnaire</a>. It helps HBHCLF understand your needs and connect you with programs, services and support. With your permission, HBHCLF can also refer you to a partner organization that can help.'),
+    ('How do I contact HBHCLF?',
+     'Email <a href="mailto:info@hbhclf.org">info@hbhclf.org</a>, call 289-408-8634, or write to 268-762 Upper James Street, Hamilton, ON L9C 3A2. You can also use the <a href="/contact-us/">contact form</a>.'),
+]
+
+def faq_section():
+    import json
+    items = []
+    for q, a in FAQ:
+        items.append('<!-- wp:details -->\n<details class="wp-block-details"><summary>%s</summary><!-- wp:paragraph -->\n<p>%s</p>\n<!-- /wp:paragraph --></details>\n<!-- /wp:details -->' % (e(q), a))
+    return section(heading('Frequently asked questions', 2, 'x-large', 'center') + "\n\n" + "\n\n".join(items), content='900px', anchor='faq', extra='hb-faq')
+
 def write(name, parts):
     open(os.path.join(OUT, name), 'w').write("\n\n".join(parts) + "\n")
 
@@ -74,7 +97,7 @@ def about():
     brd = [('Comfort Afari', 'Board Chairman', '2024/08/Comfort-Afari.webp'), ('Matilda Ansah-Sam', 'Board Member, Treasurer/Director Finance, Audit & Risk', '2024/08/Salma-Musa.webp'), ('Nancy Muinda', 'Board Member, Director Program Planning & Implementation', '2025/12/HBHCLF-Nanou.jpg'), ('Chuma Okereke', 'Board Member, Director, Nomination, Recruitment & Partnership', '2025/12/HBHCLF-Chukwuma.jpg'), ('Innocent Azipoh', 'Board Member, Service Excellence/Equity & Diversity', '2025/12/HBHCLF-Male-Headshot.jpg')]
     t.append(section(heading('The executive team', 2, 'x-large') + "\n\n" + people(exe), bg='black', text='white', anchor='team'))
     t.append(section(heading('The governing board', 2, 'x-large') + "\n\n" + people(brd), anchor='board'))
-    t.append(section(heading('Our funders', 2, 'x-large', 'center') + "\n\n" + logos([('2024/08/4.webp', 'Hamilton Urban Core Community Health Centre'), ('2025/12/nch_logo_new.png', 'NCH'), ('2026/07/HTL-CEF-300x138.png', 'HTL CEF'), ('2026/07/HCF_logo-300x116.png', 'HCF'), ('2026/11/GHHN-logo-300x83.png', 'Greater Hamilton Health Network, Ontario Health Team')]), pad='40'))
+    t.append(faq_section())
     write('about.html', t)
 
 # ---------------- Programs (page 177) ----------------
