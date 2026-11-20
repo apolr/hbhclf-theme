@@ -195,8 +195,35 @@
 		} );
 	}
 
+	/* Floating back-to-top button, shown once the visitor has scrolled down. */
+	function initBackToTop() {
+		if ( document.querySelector( '.hb-top' ) ) { return; }
+		var btn = document.createElement( 'button' );
+		btn.type = 'button';
+		btn.className = 'hb-top';
+		btn.setAttribute( 'aria-label', 'Back to top' );
+		btn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M12 5l-7 7 1.4 1.4L11 8.8V20h2V8.8l4.6 4.6L19 12z" fill="currentColor"/></svg><span class="hb-top__label">Top</span>';
+		document.body.appendChild( btn );
+		var ticking = false;
+		function update() {
+			btn.classList.toggle( 'is-shown', window.scrollY > 500 );
+			ticking = false;
+		}
+		window.addEventListener( 'scroll', function () {
+			if ( ! ticking ) { ticking = true; window.requestAnimationFrame( update ); }
+		}, { passive: true } );
+		btn.addEventListener( 'click', function () {
+			var reduce = window.matchMedia && window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+			window.scrollTo( { top: 0, behavior: reduce ? 'auto' : 'smooth' } );
+			var target = document.querySelector( '.wp-site-blocks a, .wp-site-blocks button' );
+			if ( target ) { target.focus( { preventScroll: true } ); }
+		} );
+		update();
+	}
+
 	function init() {
 		initMobileMenu();
+		initBackToTop();
 		fixPrivacyLinks();
 		document.querySelectorAll( '.hb-hero' ).forEach( function ( hero ) {
 			initHero( hero );
