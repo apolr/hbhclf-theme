@@ -48,6 +48,31 @@
 					"slug": "red",
 					"name": "Red",
 					"color": "#f1592a"
+				},
+				{
+					"slug": "brand-green",
+					"name": "Brand green",
+					"color": "#12853F"
+				},
+				{
+					"slug": "brand-green-dark",
+					"name": "Brand green dark",
+					"color": "#0B5A2B"
+				},
+				{
+					"slug": "brand-red",
+					"name": "Brand red",
+					"color": "#ED1C24"
+				},
+				{
+					"slug": "brand-gold",
+					"name": "Brand gold",
+					"color": "#FDB915"
+				},
+				{
+					"slug": "cream",
+					"name": "Cream",
+					"color": "#FFF8EC"
 				}
 			]
 		},
@@ -209,7 +234,7 @@
 			},
 			"button": {
 				"color": {
-					"background": "var(--wp--preset--color--black)",
+					"background": "var(--wp--preset--color--brand-green)",
 					"text": "var(--wp--preset--color--white)"
 				},
 				"border": {
