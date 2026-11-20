@@ -187,8 +187,17 @@
 		} );
 	}
 
+	/* Point the newsletter form's "Privacy Policy" link at the real page. */
+	function fixPrivacyLinks() {
+		document.querySelectorAll( '.mailpoet_form a' ).forEach( function ( a ) {
+			var h = a.getAttribute( 'href' );
+			if ( ( ! h || h === '#' ) && /privacy/i.test( a.textContent ) ) { a.setAttribute( 'href', '/privacy-policy/' ); }
+		} );
+	}
+
 	function init() {
 		initMobileMenu();
+		fixPrivacyLinks();
 		document.querySelectorAll( '.hb-hero' ).forEach( function ( hero ) {
 			initHero( hero );
 			addShapes( hero );

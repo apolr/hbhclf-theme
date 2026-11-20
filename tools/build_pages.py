@@ -156,7 +156,7 @@ def contact():
         + "\n\n" + heading('Shoot us an email', 3, 'medium') + "\n\n" + para('<a href="mailto:info@hbhclf.org">info@hbhclf.org</a>', raw=True))
     t = [page_hero('Contact us', 'We would be happy to assist you', img='2024/08/Contact-us.jpg'),
          section(columns([column(form, 'top'), column(details, 'top')], 'top')),
-         section(html_block('<iframe title="Map of Hamilton, Ontario" src="https://maps.google.com/maps?q=Hamilton%2C%20Ontario&amp;t=m&amp;z=10&amp;output=embed&amp;iwloc=near" width="100%" height="380" style="border:0;border-radius:16px" loading="lazy"></iframe>'), pad='40')]
+         section(html_block('<div class="hb-map"><iframe title="Map: 762 Upper James Street, Hamilton, Ontario" src="https://maps.google.com/maps?q=762%20Upper%20James%20Street%2C%20Hamilton%2C%20ON%20L9C%203A2&amp;t=m&amp;z=15&amp;output=embed&amp;iwloc=near" width="100%" height="420" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>'), pad='40')]
     write('contact.html', t)
 
 # ---------------- Newcomers (page 1071) ----------------
@@ -229,8 +229,59 @@ def inahitaji():
         + "\n\n" + para('Inahitaji Kijiji Kulea Mtoto: coming soon to Hamilton.', bold=True, align='center') + "\n\n" + button('Keep me updated', '#newsletter', orange=True, center=True), bg='black', text='white', content='900px'))
     write('inahitaji.html', t)
 
+def privacy():
+    H = lambda t: heading(t, 2, 'large')
+    P = lambda t: para(t)
+    PR = lambda t: para(t, raw=True)
+    b = [
+        PR('<strong>Effective date:</strong> November 20, 2026'),
+        P('The Hamilton Black Health Community Leaders Forum (HBHCLF, “we”, “us”) respects your privacy. This policy explains what personal information we collect through hbhclf.org, why we collect it, how we protect it and the choices you have. We handle personal information in line with Canada’s privacy principles under the Personal Information Protection and Electronic Documents Act (PIPEDA).'),
+        H('Information we collect'),
+        P('We only collect the information you choose to give us, plus a small amount of technical information needed to run the website safely.'),
+        lst(['Contact form: your name, email address, phone number, subject and message.',
+             'Newcomer Questionnaire: your contact details and the answers you choose to share about your household and your needs.',
+             'Volunteer and event registrations: your contact details, your answers to the registration questions and any file you upload, such as a resume.',
+             'Newsletter sign-up: your email address.',
+             'Technical information: when you visit the site, our hosting provider automatically records basic details such as your IP address, browser type and the pages you visit. These records help keep the site secure and working properly.']),
+        H('How we use your information'),
+        lst(['To reply to your messages and questions.',
+             'To understand community needs and connect you with programs, services and support.',
+             'To process volunteer applications and event registrations.',
+             'To send you our newsletter and updates, only if you have signed up.',
+             'To protect the website from spam, abuse and security threats.',
+             'To meet our legal and reporting obligations as a non-profit organization.']),
+        P('We do not sell, rent or trade your personal information.'),
+        H('Consent'),
+        P('By submitting a form on this website you agree to us using your information for the purpose you submitted it for. You can withdraw your consent at any time by contacting us. Every newsletter email includes an unsubscribe link.'),
+        H('Who we share information with'),
+        P('We share personal information only when it is needed to run our services, and only with trusted providers who are required to protect it:'),
+        lst(['SiteGround, which hosts our website and stores form submissions.',
+             'MailPoet, which we use to manage and send our newsletter.',
+             'Cloudflare Turnstile, which checks that forms are filled in by real people and not spam bots.',
+             'Google Maps, which displays the map on our Contact page.']),
+        P('Some of these providers may store information outside Canada, for example in the United States, where it may be subject to the laws of that country. We may also disclose information if required by law. With your permission, we may refer you to a partner organization that can help you; we will not do this without your agreement.'),
+        H('Cookies'),
+        P('Our website uses a small number of cookies that are needed for it to work, such as keeping forms secure and protecting against spam. Embedded services such as Google Maps may set their own cookies. We do not use advertising cookies. You can block or delete cookies in your browser settings, although some parts of the site may not work as expected.'),
+        H('How long we keep information'),
+        P('We keep personal information only for as long as we need it for the purpose it was collected, or as required by law. Newsletter subscribers stay on our list until they unsubscribe. When information is no longer needed, we delete it or make it anonymous.'),
+        H('How we protect your information'),
+        P('We use reasonable safeguards to protect your information, including a secure (HTTPS) connection, spam protection on our forms, limited access for authorized volunteers and staff, and security monitoring by our hosting provider. No method of sending or storing information online is completely secure, but we work to protect your information and to act quickly if a problem occurs.'),
+        H('Your choices and rights'),
+        P('You may ask to see the personal information we hold about you, ask us to correct it, or ask us to delete it, subject to any legal requirements. To make a request, contact us using the details below. If you are not satisfied with our response, you can contact the Office of the Privacy Commissioner of Canada at priv.gc.ca.'),
+        H('Children'),
+        P('Our website is not directed at children under 13, and we do not knowingly collect their personal information online. If a parent or guardian believes a child has given us personal information, please contact us and we will remove it.'),
+        H('Links to other websites'),
+        P('Our website links to other sites, such as Instagram and partner organizations. We are not responsible for their privacy practices, so please review their policies when you visit them.'),
+        H('Changes to this policy'),
+        P('We may update this policy from time to time. The effective date at the top of this page shows when it was last changed.'),
+        H('Contact us'),
+        PR('If you have questions about this policy or your personal information, please contact us:<br>Hamilton Black Health Community Leaders Forum<br>268-762 Upper James Street, Hamilton, ON L9C 3A2<br>Email: <a href="mailto:info@hbhclf.org">info@hbhclf.org</a><br>Phone: 289-408-8634'),
+    ]
+    write('privacy-policy.html', [page_hero('Privacy Policy', 'How we collect, use and protect your personal information', img='2024/08/About-Us-1.jpg'),
+        section("\n\n".join(b), content='820px')])
+
 if __name__ == '__main__':
-    about(); programs(); gallery(); contact(); newcomers(); inahitaji()
+    privacy(); about(); programs(); gallery(); contact(); newcomers(); inahitaji()
     for f in sorted(x for x in os.listdir(OUT) if x.endswith('.html')):
         s = open(os.path.join(OUT, f)).read()
         print(f.ljust(32), len(s), 'chars', s.count('<!-- wp:'), 'blocks')
