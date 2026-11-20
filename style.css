@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.7.0
+Version: 0.8.0
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -226,17 +226,6 @@ footer .mailpoet_form input.mailpoet_submit { background: var(--hb-gold) !import
 .wp-block-post-template .wp-block-post-date { color: var(--hb-red); font-weight: 600; }
 .wp-block-post-template .wp-block-post-title a { color: var(--hb-green-dark); text-decoration: none; }
 
-/* Curved bottom edge on the hero and page banners, like the wave dividers on the current site. */
-.hb-hero, .wp-block-post-content > .alignfull.has-black-background-color:first-child {
-	border-bottom-left-radius: 50% 48px;
-	border-bottom-right-radius: 50% 48px;
-}
-@media (max-width: 600px) {
-	.hb-hero, .wp-block-post-content > .alignfull.has-black-background-color:first-child {
-		border-bottom-left-radius: 50% 22px;
-		border-bottom-right-radius: 50% 22px;
-	}
-}
 
 /* Hero dots and floating shapes in brand colours. */
 .hb-hero__dots button[aria-current="true"], .hb-hero__dots button:hover { background: var(--hb-gold) !important; border-color: var(--hb-gold) !important; }
@@ -267,3 +256,96 @@ footer .mailpoet_form input.mailpoet_submit { background: var(--hb-gold) !import
 @media (max-width: 700px) {
   .hb-donate .wp-block-button__link { padding: .55em 1.1em !important; font-size: 12px !important; }
 }
+
+/* ==========================================================================
+   Section rhythm and wavy dividers (0.8.0)
+   Every page section gets the same generous spacing. Each section ends in a
+   soft wave, like the shape dividers on the current site, and the next
+   section tucks up underneath it so the wave shows that section's colour.
+   ========================================================================== */
+:root {
+	--hb-pad: clamp(56px, 7vw, 104px);
+	--hb-wave: clamp(44px, 7vw, 110px);
+	--hb-wave-foot: clamp(30px, 4.5vw, 64px);
+}
+.wp-block-post-content > .alignfull { position: relative; margin-top: 0; margin-bottom: 0; }
+.wp-block-post-content > .alignfull:not(.hb-hero) {
+	padding-top: var(--hb-pad) !important;
+	padding-bottom: var(--hb-pad) !important;
+}
+/* Wave on the bottom edge of every section except the last one. */
+.wp-block-post-content > .alignfull:not(:last-child) {
+	-webkit-mask: url("assets/img/wave-bottom.svg") center bottom / 260% var(--hb-wave) no-repeat, linear-gradient(#000, #000) top / 100% calc(100% - var(--hb-wave) + 1px) no-repeat;
+	mask: url("assets/img/wave-bottom.svg") center bottom / 260% var(--hb-wave) no-repeat, linear-gradient(#000, #000) top / 100% calc(100% - var(--hb-wave) + 1px) no-repeat;
+	border-radius: 0 !important;
+}
+.wp-block-post-content > .alignfull:not(:last-child):not(.hb-hero) { padding-bottom: calc(var(--hb-pad) + var(--hb-wave) * .5) !important; }
+/* The next section slides up under the wave. */
+.wp-block-post-content > .alignfull + .alignfull {
+	margin-top: calc(-1 * var(--hb-wave)) !important;
+	padding-top: calc(var(--hb-pad) + var(--hb-wave) * .75) !important;
+}
+/* Two white sections in a row: no wave needed, just a calm gap. */
+.wp-block-post-content > .alignfull:not(.has-background):not(.hb-hero):has(+ .alignfull:not(.has-background):not(.hb-hero)) {
+	-webkit-mask: none; mask: none;
+	padding-bottom: calc(var(--hb-pad) * .5) !important;
+}
+.wp-block-post-content > .alignfull:not(.has-background):not(.hb-hero) + .alignfull:not(.has-background):not(.hb-hero) {
+	margin-top: 0 !important;
+	padding-top: calc(var(--hb-pad) * .5) !important;
+}
+/* Earlier sections sit above later ones so each wave stays visible. */
+.wp-block-post-content > .alignfull:nth-child(1) { z-index: 40; }
+.wp-block-post-content > .alignfull:nth-child(2) { z-index: 39; }
+.wp-block-post-content > .alignfull:nth-child(3) { z-index: 38; }
+.wp-block-post-content > .alignfull:nth-child(4) { z-index: 37; }
+.wp-block-post-content > .alignfull:nth-child(5) { z-index: 36; }
+.wp-block-post-content > .alignfull:nth-child(6) { z-index: 35; }
+.wp-block-post-content > .alignfull:nth-child(7) { z-index: 34; }
+.wp-block-post-content > .alignfull:nth-child(8) { z-index: 33; }
+.wp-block-post-content > .alignfull:nth-child(9) { z-index: 32; }
+.wp-block-post-content > .alignfull:nth-child(10) { z-index: 31; }
+.wp-block-post-content > .alignfull:nth-child(11) { z-index: 30; }
+.wp-block-post-content > .alignfull:nth-child(12) { z-index: 29; }
+.wp-block-post-content > .alignfull:nth-child(13) { z-index: 28; }
+.wp-block-post-content > .alignfull:nth-child(14) { z-index: 27; }
+.wp-block-post-content > .alignfull:nth-child(15) { z-index: 26; }
+.wp-block-post-content > .alignfull:nth-child(16) { z-index: 25; }
+.wp-block-post-content > .alignfull:nth-child(17) { z-index: 24; }
+.wp-block-post-content > .alignfull:nth-child(18) { z-index: 23; }
+.wp-block-post-content > .alignfull:nth-child(19) { z-index: 22; }
+.wp-block-post-content > .alignfull:nth-child(20) { z-index: 21; }
+
+/* Hero: dots sit above the wave. */
+.hb-hero__dots { bottom: calc(var(--hb-wave) * .3 + .9rem) !important; }
+/* Event banner: the artwork keeps its full size, a green wave runs underneath it. */
+.hb-hero:has(.hb-hero__slide--banner) {
+	aspect-ratio: auto !important;
+	min-height: 0 !important;
+	padding-bottom: calc(var(--hb-wave) * .8);
+	background: linear-gradient(90deg, var(--hb-green-deep), var(--hb-green-dark));
+}
+.hb-hero > .hb-hero__slide.hb-hero__slide--banner {
+	position: relative;
+	inset: auto;
+	min-height: 0;
+	aspect-ratio: 1920 / 900;
+}
+@media (max-width: 700px) {
+	.hb-hero > .hb-hero__slide.hb-hero__slide--banner { aspect-ratio: 1080 / 1350; }
+}
+
+/* Footer: wave on its top edge, tucked over the last section. */
+.wp-site-blocks > footer {
+	position: relative;
+	z-index: 50;
+	margin-top: calc(-1 * var(--hb-wave-foot)) !important;
+	-webkit-mask: url("assets/img/wave-top.svg") center top / 156% var(--hb-wave-foot) no-repeat, linear-gradient(#000, #000) bottom / 100% calc(100% - var(--hb-wave-foot) + 1px) no-repeat;
+	mask: url("assets/img/wave-top.svg") center top / 156% var(--hb-wave-foot) no-repeat, linear-gradient(#000, #000) bottom / 100% calc(100% - var(--hb-wave-foot) + 1px) no-repeat;
+}
+.wp-site-blocks > footer > .has-background:first-child { padding-top: calc(var(--wp--preset--spacing--50) + var(--hb-wave-foot)) !important; }
+.wp-block-post-content > .alignfull:last-child:not(.hb-hero) { padding-bottom: calc(var(--hb-pad) + var(--hb-wave-foot)) !important; }
+/* Posts use a narrower single column; give the article the same breathing room. */
+.single .wp-site-blocks > main { padding-bottom: var(--hb-wave-foot); }
+/* White sections need a solid fill so their wave shows over a coloured section below. */
+.wp-block-post-content > .alignfull:not(.has-background):not(.hb-hero) { background-color: #fff; }
