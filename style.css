@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.8.0
+Version: 0.9.0
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -125,7 +125,7 @@ footer .mailpoet_form label, footer .mailpoet_form .mailpoet_message { color: #f
 }
 
 /* Bands. "Black" bands become deep green, "orange" bands warm gold, "green" bands a green-to-gold wash. */
-.alignfull.has-black-background-color,
+.alignfull.has-black-background-color:not(.hb-page-head),
 .wp-site-blocks > footer .has-black-background-color {
 	background: linear-gradient(135deg, var(--hb-green-deep) 0%, var(--hb-green-dark) 55%, var(--hb-green) 100%) !important;
 }
@@ -196,8 +196,8 @@ footer .mailpoet_form label, footer .mailpoet_form .mailpoet_message { color: #f
 footer .mailpoet_form input.mailpoet_submit { background: var(--hb-gold) !important; color: var(--hb-green-deep) !important; }
 
 /* Photos and cards: generous rounding and a soft green shadow, as on the current site. */
-.wp-block-post-content .hb-reveal .wp-block-image:not(.hb-person__photo):not(.hb-banner-desktop):not(.hb-banner-mobile) img,
-.wp-block-post-content .hb-reveal .wp-block-image:not(.hb-person__photo) { border-radius: 24px !important; }
+:where(.wp-block-post-content .hb-reveal .wp-block-image:not(.hb-person__photo):not(.hb-banner-desktop):not(.hb-banner-mobile)) img,
+:where(.wp-block-post-content .hb-reveal .wp-block-image:not(.hb-person__photo)) { border-radius: 24px !important; }
 .wp-block-post-content .hb-reveal .wp-block-columns .wp-block-image:not(.hb-person__photo) { box-shadow: var(--hb-shadow); }
 .hb-reveal:not(.has-background) .wp-block-column:not(:has(.wp-block-image, .wp-block-column, .wp-block-list, .wp-block-group)):has(> h3:first-child + p:last-child) {
 	background: #fff;
@@ -349,3 +349,82 @@ footer .mailpoet_form input.mailpoet_submit { background: var(--hb-gold) !import
 .single .wp-site-blocks > main { padding-bottom: var(--hb-wave-foot); }
 /* White sections need a solid fill so their wave shows over a coloured section below. */
 .wp-block-post-content > .alignfull:not(.has-background):not(.hb-hero) { background-color: #fff; }
+
+/* Home hero: clean straight edge (no wave), the banner and slides sit flush on the next section. */
+.wp-block-post-content > .hb-hero { -webkit-mask: none !important; mask: none !important; }
+.hb-hero:has(.hb-hero__slide--banner) { padding-bottom: 0 !important; background: var(--hb-green-deep) !important; }
+.wp-block-post-content > .hb-hero + .alignfull { margin-top: 0 !important; padding-top: var(--hb-pad) !important; }
+.hb-hero__dots { bottom: 1.25rem !important; }
+
+/* ==========================================================================
+   Inner pages (0.9.0)
+   ========================================================================== */
+/* Page header: the page photo under a green-to-red wash, like the live site. */
+.wp-block-post-content > .alignfull.hb-page-head {
+	isolation: isolate;
+	min-height: clamp(340px, 38vw, 520px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: var(--hb-green-deep) !important;
+	background-size: cover;
+	background-position: center;
+}
+.hb-page-head::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: linear-gradient(130deg, rgba(18, 133, 63, .88) 0%, rgba(11, 90, 43, .78) 45%, rgba(237, 28, 36, .82) 100%);
+}
+.hb-page-head h1 { text-shadow: 0 2px 18px rgba(0, 0, 0, .25); letter-spacing: -.01em; }
+.hb-page-head p { max-width: 46rem; margin-left: auto !important; margin-right: auto !important; opacity: .95; }
+
+/* Organic photo shapes, softly morphing on hover. */
+.wp-block-post-content .wp-block-column > .wp-block-image:not(.hb-person__photo):not(:has(a)) img {
+	border-radius: 58% 42% 38% 62% / 42% 55% 45% 58% !important;
+	transition: border-radius .9s ease, transform .9s ease;
+}
+.wp-block-post-content .wp-block-columns > .wp-block-column:nth-child(2) > .wp-block-image:not(.hb-person__photo):not(:has(a)) img { border-radius: 40% 60% 63% 37% / 55% 40% 60% 45% !important; }
+.wp-block-post-content .wp-block-columns > .wp-block-column:nth-child(3) > .wp-block-image:not(.hb-person__photo):not(:has(a)) img { border-radius: 63% 37% 54% 46% / 37% 60% 40% 63% !important; }
+.wp-block-post-content > .hb-feature:nth-child(even) .wp-block-column > .wp-block-image img { border-radius: 42% 58% 60% 40% / 60% 38% 62% 40% !important; }
+.wp-block-post-content .wp-block-column > .wp-block-image:not(.hb-person__photo):not(:has(a)):hover img { border-radius: 50% 50% 46% 54% / 48% 52% 48% 52% !important; }
+.wp-block-post-content .wp-block-column > .wp-block-image:not(.hb-person__photo):not(:has(a)) { box-shadow: none !important; filter: drop-shadow(0 18px 30px rgba(11, 90, 43, .18)); border-radius: 0 !important; overflow: visible !important; }
+
+/* Soft pastel blobs behind white sections. */
+.wp-block-post-content > .alignfull:not(.has-background):not(.hb-hero) {
+	background-image:
+		radial-gradient(ellipse 340px 280px at 96% 8%, #EAF6EE 98%, transparent 100%),
+		radial-gradient(ellipse 260px 220px at 2% 94%, #FFF3D6 98%, transparent 100%);
+}
+.wp-block-post-content > .alignfull:not(.has-background):not(.hb-hero):nth-child(even) {
+	background-image:
+		radial-gradient(ellipse 300px 260px at 3% 10%, #FFF3D6 98%, transparent 100%),
+		radial-gradient(ellipse 360px 300px at 97% 92%, #E6F4FA 98%, transparent 100%);
+}
+@media (max-width: 700px) {
+	.wp-block-post-content > .alignfull:not(.has-background):not(.hb-hero),
+	.wp-block-post-content > .alignfull:not(.has-background):not(.hb-hero):nth-child(even) { background-image: none; }
+}
+
+/* Centred section titles in red, as on the live site. */
+.wp-block-post-content > .alignfull:not(.has-background):not(.hb-hero) h2.has-text-align-center { color: var(--hb-red); }
+
+/* Team and board: names stand out, roles in bold. */
+#team h3, #board h3 { margin-top: 1rem; margin-bottom: .2rem; }
+#board h3 { color: var(--hb-red) !important; }
+#team h3 { color: var(--hb-gold) !important; }
+#team p.has-small-font-size, #board p.has-small-font-size { font-weight: 700; margin-top: 0; }
+#team .hb-person__photo img, #board .hb-person__photo img { transition: transform .5s ease; }
+#team .wp-block-column:hover .hb-person__photo img, #board .wp-block-column:hover .hb-person__photo img { transform: scale(1.04); }
+
+/* Opening paragraph under a page header: readable size, a little weight. */
+.wp-block-post-content > .hb-page-head + .alignfull p.has-large-font-size { font-size: clamp(1.15rem, 1.5vw, 1.4rem) !important; font-weight: 500; line-height: 1.6; }
+/* Two white sections in a row share one set of blobs (no seam). */
+.wp-block-post-content > .alignfull:not(.has-background):not(.hb-hero) + .alignfull:not(.has-background):not(.hb-hero) { background-image: none !important; }
+/* Gallery cards: tidy titles, red dates, a little more space between rows. */
+.wp-block-post-content .wp-block-column h3 a { color: var(--hb-green-dark); text-decoration: none; transition: color .2s; }
+.wp-block-post-content .wp-block-column h3 a:hover { color: var(--hb-red); }
+.wp-block-post-content .wp-block-column:has(> .wp-block-image a) > p.has-small-font-size { color: var(--hb-red); font-weight: 600; margin-bottom: .2rem; }
+.wp-block-post-content .wp-block-column:has(> .wp-block-image a) > h3 { margin-top: .2rem; }
+.wp-block-post-content .wp-block-columns:has(.wp-block-image a) + .wp-block-columns { margin-top: 2.5rem; }

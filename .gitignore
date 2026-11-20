@@ -2,3 +2,4 @@
 *.zip
 exports/
 *.csv
+__pycache__/

@@ -9,7 +9,11 @@ OUT = os.path.join(os.path.dirname(__file__), '..', 'content')
 def feature(img, alt, inner, flip=False, bg=None, text=None, anchor=None):
     pic = column(image(img, alt), 'center')
     txt = column(inner, 'center')
-    return section(columns([txt, pic] if flip else [pic, txt]), bg=bg, text=text, anchor=anchor)
+    return section(columns([txt, pic] if flip else [pic, txt]), bg=bg, text=text, anchor=anchor, extra='hb-feature')
+
+def logos(items):
+    imgs = "\n\n".join(f'<!-- wp:image {{"sizeSlug":"medium","linkDestination":"none"}} -->\n<figure class="wp-block-image size-medium"><img src="{U}{p}" alt="{e(a)}"/></figure>\n<!-- /wp:image -->' for p, a in items)
+    return ('<!-- wp:group {"className":"hb-logos","layout":{"type":"flex","flexWrap":"wrap","justifyContent":"center","verticalAlignment":"center"}} -->\n<div class="wp-block-group hb-logos">' + imgs + '</div>\n<!-- /wp:group -->')
 
 def write(name, parts):
     open(os.path.join(OUT, name), 'w').write("\n\n".join(parts) + "\n")
@@ -17,7 +21,7 @@ def write(name, parts):
 # ---------------- About (page 159) ----------------
 def about():
     t = []
-    t.append(page_hero('Who we are', 'the voice of Hamilton’s African Diaspora Community at the municipal, provincial and federal levels'))
+    t.append(page_hero('Who we are', 'the voice of Hamilton’s African Diaspora Community at the municipal, provincial and federal levels', img='2024/08/About-Us.jpg'))
     t.append(section(
         para('Hamilton Black Health Community Leaders Forum is the voice of Hamilton’s African Diaspora Community at the municipal, provincial and federal levels. The organization represents Hamilton’s African Communities before the city of Hamilton, and the provincial and federal governments in the spirit of partnership for the advancement of its member-unique needs regarding the social determinants of health. HBHCLF, a federally registered, non-partisan and non-profit organization was established on September 14, 2021, and was inaugurated on May 28th, 2022.', 'large')
         + "\n\n" + para('We are governed by a constitution and specific bylaws agreed to by our membership and represent the interest of Canadians of African heritage residing in Hamilton at the Municipal, Provincial and Federal levels on policy-oriented issues that impact them in areas such as housing, access to equitable and culturally-delivered healthcare, employment, and other social determinants of health.'),
@@ -70,11 +74,12 @@ def about():
     brd = [('Comfort Afari', 'Board Chairman', '2024/08/Comfort-Afari.webp'), ('Matilda Ansah-Sam', 'Board Member, Treasurer/Director Finance, Audit & Risk', None), ('Nancy Muinda', 'Board Member, Director Program Planning & Implementation', '2025/12/HBHCLF-Nanou.jpg'), ('Chuma Okereke', 'Board Member, Director, Nomination, Recruitment & Partnership', '2025/12/HBHCLF-Chukwuma.jpg'), ('Innocent Azipoh', 'Board Member, Service Excellence/Equity & Diversity', None)]
     t.append(section(heading('The executive team', 2, 'x-large') + "\n\n" + people(exe), bg='black', text='white', anchor='team'))
     t.append(section(heading('The governing board', 2, 'x-large') + "\n\n" + people(brd), anchor='board'))
+    t.append(section(heading('Our funders', 2, 'x-large', 'center') + "\n\n" + logos([('2024/08/4.webp', 'Hamilton Urban Core Community Health Centre'), ('2025/12/nch_logo_new.png', 'NCH'), ('2026/07/HTL-CEF-300x138.png', 'HTL CEF'), ('2026/07/HCF_logo-300x116.png', 'HCF'), ('2026/11/GHHN-logo-300x83.png', 'Greater Hamilton Health Network, Ontario Health Team')]), pad='40'))
     write('about.html', t)
 
 # ---------------- Programs (page 177) ----------------
 def programs():
-    t = [page_hero('Our programs', 'to unite people of African heritage living in Hamilton')]
+    t = [page_hero('Our programs', 'to unite people of African heritage living in Hamilton', img='2024/08/Untitled-design.jpg')]
     t.append(feature(U + '2024/08/Africa-Day.jpg', '', heading('Africa Day', 2, 'x-large') + "\n\n" + para('The Africa Day celebration in Hamilton, Ontario, is a vibrant annual event that unites the city’s African community and its supporters around May 25th, honoring African heritage and culture. This gathering features a rich array of activities, including cultural showcases of arts and crafts, thought-provoking lectures by community leaders, lively music and dance performances, and a culinary experience featuring authentic African cuisine. Organized by the Hamilton Black Health Community Leaders Forum, the celebration fosters unity among people of African descent, promotes cross-cultural understanding, empowers youth, and highlights the contributions of the African community to Hamilton’s diverse cultural landscape.')))
     t.append(feature(U + '2026/09/Inahita-Kijiji-Kulea-Mtoto-–-African-Children.png', 'Smiling Black African children gathered together, representing community, care, and belonging.',
         kicker('Featured program', 'black') + "\n\n" + heading('Inahitaji Kijiji Kulea Mtoto', 2, 'x-large') + "\n\n" + heading('It Takes a Village to Raise a Child', 3, 'large')
@@ -140,7 +145,7 @@ def gallery():
         c = [card(*x) for x in items[i:i + 3]]
         while len(c) < 3: c.append(column('', 'top'))
         rows.append(columns(c, 'top'))
-    write('gallery.html', [page_hero('Media Gallery', 'Yes! We love taking photos'), section("\n\n".join(rows))])
+    write('gallery.html', [page_hero('Media Gallery', 'Yes! We love taking photos', img='2024/08/photos.jpg'), section("\n\n".join(rows))])
 
 # ---------------- Contact (page 216) ----------------
 def contact():
@@ -149,14 +154,14 @@ def contact():
         + "\n\n" + heading('Give us a call', 3, 'medium') + "\n\n" + para('289-408-8634')
         + "\n\n" + heading('Our mailing address', 3, 'medium') + "\n\n" + para('268-762 Upper James Street, Hamilton, ON L9C3A2')
         + "\n\n" + heading('Shoot us an email', 3, 'medium') + "\n\n" + para('<a href="mailto:info@hbhclf.org">info@hbhclf.org</a>', raw=True))
-    t = [page_hero('Contact us', 'We would be happy to assist you'),
+    t = [page_hero('Contact us', 'We would be happy to assist you', img='2024/08/Contact-us.jpg'),
          section(columns([column(form, 'top'), column(details, 'top')], 'top')),
          section(html_block('<iframe title="Map of Hamilton, Ontario" src="https://maps.google.com/maps?q=Hamilton%2C%20Ontario&amp;t=m&amp;z=10&amp;output=embed&amp;iwloc=near" width="100%" height="380" style="border:0;border-radius:16px" loading="lazy"></iframe>'), pad='40')]
     write('contact.html', t)
 
 # ---------------- Newcomers (page 1071) ----------------
 def newcomers():
-    write('newcomer-questionnaire.html', [page_hero('Newcomer Questionnaire', 'Your response will assist us to better equip ourselves to help.'),
+    write('newcomer-questionnaire.html', [page_hero('Newcomer Questionnaire', 'Your response will assist us to better equip ourselves to help.', img='2024/08/About-Us-1.jpg'),
         section(shortcode('[fluentform id="3"]'), content='800px')])
 
 # ---------------- Inahitaji (page 1780) ----------------
@@ -205,7 +210,7 @@ def inahitaji():
         + "\n\n" + heading('How to apply', 3, 'large') + "\n\n" + para('Please send your resume to <a href="mailto:info@hbhclf.org?subject=ABUSUA/Elder%20Volunteer%20Application">info@hbhclf.org</a> as soon as possible.', raw=True)
         + "\n\n" + button('Apply now: register to volunteer', '#volunteer-form', orange=True))
     write('abusua-elder-volunteer.html', [
-        page_hero('ABUSUA/Elder Volunteer', 'Share your wisdom with African/Black families and youth in Hamilton'),
+        page_hero('ABUSUA/Elder Volunteer', 'Share your wisdom with African/Black families and youth in Hamilton', img='2026/09/Family-Resilience-Circles.png'),
         section(vol.replace('"textColor":"amber"', '"textColor":"orange"').replace('has-amber-color', 'has-orange-color'), content='900px'),
         section(heading('Register to volunteer as an ABUSUA/Elder', 2, 'x-large') + "\n\n" + shortcode('[fluentform id="7"]'), content='800px', anchor='volunteer-form', bg='black', text='white')])
     t.append(section(kicker('Now recruiting: volunteer opportunity', 'amber') + "\n\n" + heading('Become an ABUSUA/Elder Volunteer', 2, 'x-large')

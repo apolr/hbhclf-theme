@@ -79,16 +79,18 @@ def columns(cols, valign='center', stack_reverse=False):
     return (f'<!-- wp:columns {json.dumps(attrs, separators=(",", ":"))} -->\n<div class="wp-block-columns are-vertically-aligned-{valign}">'
             + "\n\n".join(cols) + '</div>\n<!-- /wp:columns -->')
 
-def section(inner, bg=None, text=None, content='1200px', pad='50', anchor=None, reveal=True):
+def section(inner, bg=None, text=None, content='1200px', pad='50', anchor=None, reveal=True, extra=None, bgimg=None):
     import json
     attrs = {'align': 'full'}
     cls = ['wp-block-group', 'alignfull']
-    if reveal: attrs['className'] = 'hb-reveal'; cls.append('hb-reveal')
+    names = (['hb-reveal'] if reveal else []) + (extra.split() if extra else [])
+    if names: attrs['className'] = ' '.join(names); cls += names
     if anchor: attrs['anchor'] = anchor
     if bg: attrs['backgroundColor'] = bg
     if text: attrs['textColor'] = text
     attrs['layout'] = {'type': 'constrained', 'contentSize': content}
     attrs['style'] = {'spacing': {'padding': {'top': f'var:preset|spacing|{pad}', 'bottom': f'var:preset|spacing|{pad}'}}}
+    if bgimg: attrs['style']['background'] = {'backgroundImage': {'url': bgimg, 'source': 'file'}, 'backgroundSize': 'cover', 'backgroundPosition': '50% 50%'}
     if text: cls.append(f'has-{text}-color')
     if bg: cls.append(f'has-{bg}-background-color')
     if text: cls.append('has-text-color')
@@ -97,10 +99,10 @@ def section(inner, bg=None, text=None, content='1200px', pad='50', anchor=None, 
     return (f'<!-- wp:group {json.dumps(attrs, separators=(",", ":"))} -->\n<div{idattr} class="{" ".join(cls)}" style="{PADCSS(pad)}">'
             + inner + '</div>\n<!-- /wp:group -->')
 
-def page_hero(title, subtitle=None, bg='black'):
+def page_hero(title, subtitle=None, bg='black', img=None):
     inner = heading(title, 1, 'hero', 'center')
     if subtitle: inner += "\n\n" + para(subtitle, 'large', align='center')
-    return section(inner, bg=bg, text='white' if bg == 'black' else 'black', content='1000px', pad='50', reveal=False)
+    return section(inner, bg=bg, text='white' if bg == 'black' else 'black', content='1000px', pad='50', reveal=False, extra='hb-page-head', bgimg=(U + img) if img else None)
 
 def card_grid(cards, cols=3):
     """cards: list of (title, text). Equal columns in rows of `cols`."""
