@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.9.5
+Version: 0.9.6
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -679,3 +679,59 @@ footer a[href="/privacy-policy/"] { color: #fff; text-decoration: underline; tex
 .has-modal-open .hb-top { opacity: 0 !important; visibility: hidden !important; }
 @media (prefers-reduced-motion: reduce) { .hb-top { transition: none; } }
 @media print { .hb-top { display: none !important; } }
+
+/* Photo lightbox for news posts (0.9.6) */
+.hb-lb-thumb { cursor: zoom-in; transition: transform .35s ease, filter .35s ease; }
+.hb-lb-thumb:hover { filter: brightness(1.06); }
+.hb-lb-thumb:focus-visible { outline: 3px solid var(--hb-gold); outline-offset: 3px; }
+html.hb-lb-open { overflow: hidden; }
+.hb-lb {
+	position: fixed; inset: 0; z-index: 100001;
+	display: flex; align-items: center; justify-content: center;
+	padding: clamp(12px, 4vw, 56px);
+	background: rgba(4, 30, 15, .94);
+	opacity: 0; visibility: hidden;
+	transition: opacity .3s ease, visibility .3s;
+}
+.hb-lb.is-open { opacity: 1; visibility: visible; }
+.hb-lb__stage { margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; }
+.hb-lb__img {
+	max-width: 100%; max-height: calc(100% - 3.5rem);
+	object-fit: contain; border-radius: 12px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+	opacity: 0; transform: scale(.97);
+	transition: opacity .3s ease, transform .3s ease;
+}
+.hb-lb__img.is-loaded { opacity: 1; transform: none; }
+.hb-lb__cap { margin-top: .9rem; max-width: 52rem; color: rgba(255, 255, 255, .85); font-size: .95rem; text-align: center; line-height: 1.4; }
+.hb-lb button { font-family: inherit; cursor: pointer; border: 0; color: #fff; }
+.hb-lb__close {
+	position: absolute; top: 16px; right: 16px;
+	width: 48px; height: 48px; border-radius: 50%;
+	background: rgba(255, 255, 255, .14); font-size: 2rem; line-height: 1;
+	transition: background .2s, transform .3s;
+}
+.hb-lb__close:hover { background: var(--hb-red); transform: rotate(90deg); }
+.hb-lb__nav {
+	position: absolute; top: 50%; transform: translateY(-50%);
+	width: 54px; height: 54px; border-radius: 50%;
+	background: rgba(255, 255, 255, .14); font-size: 2.4rem; line-height: 1; padding-bottom: 4px;
+	transition: background .2s;
+}
+.hb-lb__nav:hover { background: var(--hb-green); }
+.hb-lb__prev { left: 16px; }
+.hb-lb__next { right: 16px; }
+.hb-lb__count {
+	position: absolute; top: 26px; left: 50%; transform: translateX(-50%);
+	color: #fff; font-size: .85rem; font-weight: 700; letter-spacing: .08em;
+	background: rgba(255, 255, 255, .12); padding: .35rem .8rem; border-radius: 999px;
+}
+.hb-lb button:focus-visible { outline: 3px solid var(--hb-gold); outline-offset: 3px; }
+.hb-lb [hidden] { display: none !important; }
+@media (max-width: 600px) {
+	.hb-lb__nav { top: auto; bottom: 18px; transform: none; width: 48px; height: 48px; }
+	.hb-lb__prev { left: calc(50% - 60px); }
+	.hb-lb__next { right: calc(50% - 60px); }
+	.hb-lb__img { max-height: calc(100% - 8rem); }
+}
+@media (prefers-reduced-motion: reduce) { .hb-lb, .hb-lb__img, .hb-lb-thumb { transition: none; } }

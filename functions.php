@@ -40,6 +40,16 @@ add_action( 'wp_enqueue_scripts', function () {
 		(string) filemtime( $dir . '/assets/js/motion.js' ),
 		array( 'in_footer' => true, 'strategy' => 'defer' )
 	);
+	// Photo lightbox for galleries and photos in news posts.
+	if ( is_singular( 'post' ) ) {
+		wp_enqueue_script(
+			'hbhclf-lightbox',
+			$uri . '/assets/js/lightbox.js',
+			array(),
+			(string) filemtime( $dir . '/assets/js/lightbox.js' ),
+			array( 'in_footer' => true, 'strategy' => 'defer' )
+		);
+	}
 } );
 
 // Search and sharing basics (meta description, link previews, structured data, llms.txt).
