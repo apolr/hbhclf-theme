@@ -66,3 +66,18 @@ add_filter( 'render_block', function ( $html, $block ) {
 	}
 	return $html;
 }, 10, 2 );
+
+
+/**
+ * Home page: the "Updates" news section now lives in the theme (parts/updates.html),
+ * after "Our mission". Hide the older copy that is still saved inside the Home page content.
+ */
+add_filter( 'render_block', function ( $html, $block ) {
+	if ( is_front_page() && 'core/group' === ( $block['blockName'] ?? '' ) ) {
+		$raw = serialize_block( $block );
+		if ( false !== strpos( $raw, '>Updates<' ) && false !== strpos( $raw, 'wp:query' ) && false === strpos( $raw, 'hb-updates' ) ) {
+			return '';
+		}
+	}
+	return $html;
+}, 11, 2 );
