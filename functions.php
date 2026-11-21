@@ -61,7 +61,7 @@ require_once get_template_directory() . '/inc/seo.php';
  * MailPoet shortcode cleanly instead.
  */
 add_filter( 'render_block', function ( $html, $block ) {
-	if ( 'core/shortcode' === ( $block['blockName'] ?? '' ) && false !== strpos( $block['innerHTML'] ?? '', 'mailpoet_form' ) ) {
+	if ( 'core/shortcode' === ( $block['blockName'] ?? '' ) && ( false !== strpos( $block['innerHTML'] ?? '', 'mailpoet_form' ) || false !== strpos( $block['innerHTML'] ?? '', 'instagram-feed' ) ) ) {
 		return do_shortcode( trim( $block['innerHTML'] ) );
 	}
 	return $html;
@@ -81,3 +81,14 @@ add_filter( 'render_block', function ( $html, $block ) {
 	}
 	return $html;
 }, 11, 2 );
+
+
+/** Instagram section: only shown when the Instagram Feed plugin is active and has posts to show. */
+add_filter( 'render_block', function ( $html, $block ) {
+	if ( 'core/group' === ( $block['blockName'] ?? '' ) && preg_match( '/class="[^"]*\bhb-insta[\s"]/', $html ) ) {
+		if ( ! shortcode_exists( 'instagram-feed' ) || false === strpos( $html, 'sb_instagram' ) ) {
+			return '';
+		}
+	}
+	return $html;
+}, 12, 2 );

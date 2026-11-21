@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.10.1
+Version: 0.10.2
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -819,3 +819,25 @@ html.hb-lb-open { overflow: hidden; }
 /* The partners block now tucks up over the Updates block on the Home page. */
 .hb-updates + .hb-partners { z-index: 40; }
 .home .wp-block-post-content > .alignfull:last-child:not(.hb-hero) { padding-bottom: calc(var(--hb-pad) + var(--hb-wave-foot)) !important; }
+
+/* Instagram feed (0.10.2): sits between Updates and Partners. */
+.hb-insta {
+	position: relative; z-index: 35;
+	background: var(--wp--preset--color--cream, #FFF8EC);
+	padding-top: var(--hb-pad);
+	padding-bottom: calc(var(--hb-pad) * .6 + var(--hb-wave-foot));
+	margin-top: calc(-1 * var(--hb-wave-foot));
+	-webkit-mask: url("assets/img/wave-top.svg") center top / 156% var(--hb-wave-foot) no-repeat, linear-gradient(#000, #000) bottom / 100% calc(100% - var(--hb-wave-foot) + 1px) no-repeat;
+	mask: url("assets/img/wave-top.svg") center top / 156% var(--hb-wave-foot) no-repeat, linear-gradient(#000, #000) bottom / 100% calc(100% - var(--hb-wave-foot) + 1px) no-repeat;
+}
+.hb-insta__inner { padding-left: var(--wp--preset--spacing--30); padding-right: var(--wp--preset--spacing--30); }
+.hb-insta h2 { color: var(--hb-green-dark); margin-bottom: .25rem; }
+.hb-insta__lead { margin: 0 auto var(--wp--preset--spacing--40); max-width: 36rem; opacity: .8; }
+.hb-insta #sb_instagram { padding: 0 !important; margin: 0 auto var(--wp--preset--spacing--40); }
+.hb-insta #sb_instagram .sbi_photo, .hb-insta #sb_instagram .sbi_photo img { border-radius: 16px; }
+.hb-insta #sb_instagram .sbi_item { transition: transform .25s ease; }
+.hb-insta #sb_instagram .sbi_item:hover { transform: translateY(-3px); }
+.hb-insta .wp-block-button__link { background: var(--hb-green); color: #fff; border-radius: 999px; }
+.hb-insta .wp-block-button__link:hover { background: var(--hb-red); }
+@media (prefers-reduced-motion: reduce) { .hb-insta #sb_instagram .sbi_item { transition: none; } .hb-insta #sb_instagram .sbi_item:hover { transform: none; } }
+.hb-insta + .hb-partners { z-index: 40; }
