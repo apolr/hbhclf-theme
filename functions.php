@@ -62,7 +62,18 @@ require_once get_template_directory() . '/inc/seo.php';
  */
 add_filter( 'render_block', function ( $html, $block ) {
 	if ( 'core/shortcode' === ( $block['blockName'] ?? '' ) && ( false !== strpos( $block['innerHTML'] ?? '', 'mailpoet_form' ) || false !== strpos( $block['innerHTML'] ?? '', 'instagram-feed' ) ) ) {
-		return do_shortcode( trim( $block['innerHTML'] ) );
+		$code = trim( $block['innerHTML'] );
+		// Instagram Feed (Smash Balloon): use the first saved feed when none is named.
+		if ( false !== strpos( $code, 'instagram-feed' ) && false === strpos( $code, 'feed=' ) ) {
+			global $wpdb;
+			$suppress = $wpdb->suppress_errors( true );
+			$feed_id  = (int) $wpdb->get_var( "SELECT id FROM {$wpdb->prefix}sbi_feeds ORDER BY id ASC LIMIT 1" );
+			$wpdb->suppress_errors( $suppress );
+			if ( $feed_id ) {
+				$code = '[instagram-feed feed=' . $feed_id . ']';
+			}
+		}
+		return do_shortcode( $code );
 	}
 	return $html;
 }, 10, 2 );
