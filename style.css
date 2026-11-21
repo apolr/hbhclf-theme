@@ -4,7 +4,7 @@ Theme URI: https://hbhclf.org
 Author: Evryware
 Author URI: https://evryware.com
 Description: Block theme for hbhclf.org. No page builder required. Built on native WordPress blocks.
-Version: 0.10.3
+Version: 0.10.4
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -841,3 +841,24 @@ html.hb-lb-open { overflow: hidden; }
 .hb-insta .wp-block-button__link:hover { background: var(--hb-red); }
 @media (prefers-reduced-motion: reduce) { .hb-insta #sb_instagram .sbi_item { transition: none; } .hb-insta #sb_instagram .sbi_item:hover { transform: none; } }
 .hb-insta + .hb-partners { z-index: 40; }
+
+/* Partners and funders (0.10.4): a still, tidy grid of logo tiles instead of a scrolling strip. */
+.hb-partners .hb-logos {
+	display: flex !important; flex-wrap: wrap !important; justify-content: center; align-items: stretch;
+	gap: clamp(12px, 1.6vw, 20px) !important;
+}
+.hb-partners .hb-logos > figure.wp-block-image {
+	flex: 0 0 clamp(150px, 18%, 210px); margin: 0 !important;
+	display: flex; align-items: center; justify-content: center;
+	height: 104px; padding: 14px 18px; box-sizing: border-box;
+	background: #fff; border: 1px solid rgba(7,61,29,.1); border-radius: 16px;
+	box-shadow: 0 2px 10px rgba(7,61,29,.05);
+	transition: transform .25s ease, box-shadow .25s ease;
+}
+.hb-partners .hb-logos > figure.wp-block-image:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(7,61,29,.12); }
+.hb-partners .hb-logos img { height: auto !important; width: auto !important; max-width: 100% !important; max-height: 72px; object-fit: contain; }
+@media (max-width: 600px) {
+	.hb-partners .hb-logos > figure.wp-block-image { flex-basis: calc(50% - 8px); height: 92px; padding: 10px 12px; }
+	.hb-partners .hb-logos img { max-height: 62px; }
+}
+@media (prefers-reduced-motion: reduce) { .hb-partners .hb-logos > figure.wp-block-image { transition: none; } .hb-partners .hb-logos > figure.wp-block-image:hover { transform: none; } }

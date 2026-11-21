@@ -233,7 +233,11 @@
 			band.classList.add( 'hb-band' );
 			addShapes( band );
 		} );
-		document.querySelectorAll( '.hb-logos' ).forEach( initMarquee );
+		document.querySelectorAll( '.hb-logos' ).forEach( function ( row ) {
+			if ( ! row.closest( '.hb-partners' ) ) {
+				initMarquee( row );
+			}
+		} );
 		initReveal();
 	}
 
